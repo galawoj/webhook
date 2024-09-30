@@ -1,29 +1,52 @@
 import { ref, onValue } from "firebase/database";
 import { database } from "./firebaseConfig";
 import "./App.css";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import ReactJson from "react-json-view";
 
 function App() {
-  const [dataJson, setDataJson] = useState<any>({});
+  const [dataJson, setDataJson] = useState<any>();
   useEffect(() => {
     const starCountRef = ref(database, "/data");
     onValue(starCountRef, (snapshot) => {
       const data = snapshot.val();
-      setDataJson(data);
+      setDataJson(Object.values(data));
     });
   }, []);
-  // const inputElement = useRef<HTMLInputElement>(null);
-  // const [inputValue, setInputValue] = useState<string>("");
+  const inputElement = useRef<HTMLInputElement>(null);
+  const [indicateElement, setIndicateElement] = useState<any>("");
 
-  // function valueInputHandle() {
-  //   setInputValue(inputElement.current!.value as string);
-  // }
+  function objectElement(ob: any, path: string[]) {
+    let element = ob;
+    for (let e of path) {
+      element = element[e];
+    }
+
+    setIndicateElement(element);
+  }
+
+  function valueInputHandle() {
+    const inputText = inputElement.current!.value as string;
+    let arrayTextElemens = inputText.split(".");
+
+    objectElement(dataJson, arrayTextElemens);
+  }
 
   return (
     <>
-      {/* <input ref={inputElement} type="text" onChange={valueInputHandle} /> */}
-      {/* <div>{inputValue}</div> */}
+      <input ref={inputElement} type="text" onChange={valueInputHandle} />
+
+      {typeof indicateElement === "object" ? (
+        <ReactJson
+          displayObjectSize={false}
+          iconStyle="square"
+          displayDataTypes={false}
+          name={false}
+          src={indicateElement}
+        />
+      ) : (
+        <span>{String(indicateElement)}</span>
+      )}
 
       <ReactJson
         displayObjectSize={false}
