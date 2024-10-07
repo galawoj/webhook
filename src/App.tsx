@@ -1,15 +1,15 @@
-import CurrentData from "./components/CurrentData";
+import CurrentData from "./components/currentData/CurrentData";
 import Cart from "./components/Cart";
-import Main from "./pages/main/Main";
+import MainContainer from "./components/MainContainer";
 
 export default function App() {
   return (
-    <Main>
+    <MainContainer>
       <Cart>1</Cart>
       <Cart>
         <CurrentData />
       </Cart>
       <Cart>3</Cart>
-    </Main>
+    </MainContainer>
   );
 }
