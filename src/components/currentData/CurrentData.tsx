@@ -1,12 +1,14 @@
 import { ref, onValue } from "firebase/database";
 import { database } from "../../firebaseConfig";
 import TextField from "@mui/material/TextField";
-
 import { useEffect, useRef, useState } from "react";
-
 import SingleWebhookData from "./SingleWebhookData";
+import { useConditionsSelector } from "../../store/hooks";
 
 function CurrentData() {
+  const currentCondition = useConditionsSelector(
+    (state) => state.conditions.currentCondition
+  );
   const [dataJson, setDataJson] = useState<any>();
   const inputElement = useRef<HTMLInputElement>(null);
   const conditionElement = useRef<HTMLInputElement>(null);
@@ -51,6 +53,7 @@ function CurrentData() {
 
   return (
     <>
+      <div>{currentCondition}</div>
       if
       <TextField
         inputRef={inputElement}
