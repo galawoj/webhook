@@ -1,5 +1,3 @@
-export default function elementFromObject(ob: any, path: string[]){
-
-return path.reduce((acc, key) => acc[key], ob);
-
+export default function elementFromObject(ob: any, path: string[]) {
+  return path.reduce((acc, key) => acc[key], ob);
 }
