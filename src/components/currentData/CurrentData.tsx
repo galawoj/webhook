@@ -4,6 +4,7 @@ import TextField from "@mui/material/TextField";
 import { useEffect, useRef, useState } from "react";
 import SingleWebhookData from "./SingleWebhookData";
 import { useConditionsSelector } from "../../store/hooks";
+import ListItems from "../ListItems";
 
 function CurrentData() {
   const currentCondition = useConditionsSelector(
@@ -70,16 +71,16 @@ function CurrentData() {
         variant="outlined"
         onChange={conditionHandle}
       />
-      <ul>
-        {dataJson?.map((e: any) => (
+      <ListItems array={dataJson}>
+        {(item) => (
           <SingleWebhookData
             conditionValue={conditionText}
             pathIndicator={pathIndicator}
-            key={e.id}
-            singleJson={e}
+            key={item.id}
+            singleJson={item}
           />
-        ))}
-      </ul>
+        )}
+      </ListItems>
     </>
   );
 }
