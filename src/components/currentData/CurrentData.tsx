@@ -93,16 +93,20 @@ function CurrentData() {
         }}
         value={conditionText}
       />
-      <ListItems array={dataJson}>
-        {(item) => (
-          <SingleWebhookData
-            conditionValue={conditionText}
-            pathIndicator={pathIndicator}
-            key={item.id}
-            singleJson={item}
-          />
-        )}
-      </ListItems>
+      <ul>
+        <ListItems array={dataJson}>
+          {(item) => (
+            <li>
+              <SingleWebhookData
+                conditionValue={conditionText}
+                pathIndicator={pathIndicator}
+                key={item.id}
+                singleJson={item}
+              />
+            </li>
+          )}
+        </ListItems>
+      </ul>
     </>
   );
 }
