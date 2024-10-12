@@ -3,17 +3,31 @@ import { database } from "../../firebaseConfig";
 import TextField from "@mui/material/TextField";
 import { useEffect, useRef, useState } from "react";
 import SingleWebhookData from "./SingleWebhookData";
-import { useConditionsSelector } from "../../store/hooks";
+import {
+  useConditionsDispatch,
+  useConditionsSelector,
+} from "../../store/hooks";
 import ListItems from "../ListItems";
+import { setInputValue, setConditionValue } from "../../store/conditions-slice";
 
 function CurrentData() {
+  const dispatch = useConditionsDispatch();
+
   const currentCondition = useConditionsSelector(
     (state) => state.conditions.currentCondition
   );
+
+  const currentConditionItem = useConditionsSelector((state) =>
+    state.conditions.conditions.find((item) => item.id === currentCondition)
+  );
+
   const [dataJson, setDataJson] = useState<any>();
-  const inputElement = useRef<HTMLInputElement>(null);
-  const conditionElement = useRef<HTMLInputElement>(null);
-  const [conditionText, setConditionText] = useState<string>("");
+  const [conditionText, setConditionText] = useState<string>(
+    currentConditionItem?.conditionValue || ""
+  );
+  const [inputText, setInputText] = useState<string>(
+    currentConditionItem?.inputValue || ""
+  );
 
   const [pathIndicator, setPathIndicator] = useState<string[]>([]);
   const timer = useRef<NodeJS.Timeout | null>(null);
@@ -27,28 +41,30 @@ function CurrentData() {
     return () => unsubscribe();
   }, []);
 
-  function valueInputHandle() {
+  useEffect(() => {
+    setInputText(currentConditionItem?.inputValue || "");
+    setConditionText(currentConditionItem?.conditionValue || "");
+  }, [currentCondition]);
+
+  function valueInputHandle(value: string) {
     if (timer.current) {
       clearTimeout(timer.current);
     }
 
     timer.current = setTimeout(() => {
-      const inputText = inputElement.current!.value as string;
-      let arrayTextElemens = inputText.split(".");
-
-      setPathIndicator(arrayTextElemens);
+      setPathIndicator(value.split("."));
+      dispatch(setInputValue(value));
     }, 500);
   }
 
-  function conditionHandle() {
+  function valueConditionHandle(value: string) {
     if (timer.current) {
       clearTimeout(timer.current);
     }
 
     timer.current = setTimeout(() => {
-      const inputText = conditionElement.current!.value as string;
-
-      setConditionText(inputText);
+      setConditionText(value);
+      dispatch(setConditionValue(value));
     }, 500);
   }
 
@@ -57,19 +73,25 @@ function CurrentData() {
       <div>{currentCondition}</div>
       if
       <TextField
-        inputRef={inputElement}
-        id="outlined-basic"
+        id="path-element-field"
         label="path of element"
         variant="outlined"
-        onChange={valueInputHandle}
+        onChange={(e) => {
+          setInputText(e.target.value);
+          valueInputHandle(e.target.value);
+        }}
+        value={inputText}
       />
       =
       <TextField
-        inputRef={conditionElement}
-        id="outlined-basic"
+        id="condition-field"
         label="condition"
         variant="outlined"
-        onChange={conditionHandle}
+        onChange={(e) => {
+          setConditionText(e.target.value);
+          valueConditionHandle(e.target.value);
+        }}
+        value={conditionText}
       />
       <ListItems array={dataJson}>
         {(item) => (

@@ -29,17 +29,46 @@ export const conditionsSlice = createSlice({
   reducers: {
     addConditionItem(state) {
       state.conditions.push({
-        id: state.conditions.length + 1,
+        id: state.conditions[state.conditions.length - 1].id + 1,
         inputValue: "",
         conditionValue: "",
       });
-      state.currentCondition++;
+      state.currentCondition = state.conditions[state.conditions.length - 1].id;
+    },
+    removeConditionItem(state, action: PayloadAction<number>) {
+      state.conditions = state.conditions.filter(
+        (item) => item.id !== action.payload
+      );
+
+      state.currentCondition = state.conditions[0].id;
     },
     setCurrentCondition(state, action: PayloadAction<number>) {
       state.currentCondition = action.payload;
     },
+    setInputValue(state, action: PayloadAction<string>) {
+      state.conditions = state.conditions.map((item) => {
+        if (item.id === state.currentCondition) {
+          return { ...item, inputValue: action.payload };
+        }
+        return item;
+      });
+      console.log(state.conditions);
+    },
+    setConditionValue(state, action: PayloadAction<string>) {
+      state.conditions = state.conditions.map((item) => {
+        if (item.id === state.currentCondition) {
+          return { ...item, conditionValue: action.payload };
+        }
+        return item;
+      });
+    },
   },
 });
 
-export const { addConditionItem, setCurrentCondition } =
-  conditionsSlice.actions;
+export const {
+  addConditionItem,
+  setCurrentCondition,
+  removeConditionItem,
+  setInputValue,
+  setConditionValue,
+} = conditionsSlice.actions;
