@@ -26,7 +26,7 @@ export default function SingleWebhookData({
   }, [pathIndicator]);
 
   return (
-    <li>
+    <>
       <ReactJson
         displayObjectSize={false}
         iconStyle="square"
@@ -45,6 +45,6 @@ export default function SingleWebhookData({
           <b>invalid</b>
         </div>
       )}
-    </li>
+    </>
   );
 }

@@ -2,16 +2,16 @@ import {
   removeConditionItem,
   setCurrentCondition,
 } from "../../store/conditions-slice";
-import { useConditionsDispatch } from "../../store/hooks";
+import { useAppDispatch } from "../../store/hooks";
 
 type ContiodionButtonType = {
   id: number;
 };
 
 export default function ConditionButton({ id }: ContiodionButtonType) {
-  const dispatch = useConditionsDispatch();
+  const dispatch = useAppDispatch();
   return (
-    <div>
+    <div style={{ display: "flex", justifyContent: "space-around" }}>
       <button onClick={() => dispatch(setCurrentCondition(id))}>
         condition {id}
       </button>

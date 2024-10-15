@@ -7,6 +7,5 @@ import { AppDispatch, RootState } from "./store";
 
 type DispatchFunction = () => AppDispatch;
 
-export const useConditionsDispatch: DispatchFunction = useDispatch;
-export const useConditionsSelector: TypedUseSelectorHook<RootState> =
-  useSelector;
+export const useAppDispatch: DispatchFunction = useDispatch;
+export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;

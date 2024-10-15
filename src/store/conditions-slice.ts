@@ -52,7 +52,6 @@ export const conditionsSlice = createSlice({
         }
         return item;
       });
-      console.log(state.conditions);
     },
     setConditionValue(state, action: PayloadAction<string>) {
       state.conditions = state.conditions.map((item) => {

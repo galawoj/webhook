@@ -1,27 +1,27 @@
-import { ref, onValue } from "firebase/database";
-import { database } from "../../firebaseConfig";
-import TextField from "@mui/material/TextField";
 import { useEffect, useRef, useState } from "react";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
+
 import SingleWebhookData from "./SingleWebhookData";
-import {
-  useConditionsDispatch,
-  useConditionsSelector,
-} from "../../store/hooks";
 import ListItems from "../ListItems";
+
 import { setInputValue, setConditionValue } from "../../store/conditions-slice";
 
-function CurrentData() {
-  const dispatch = useConditionsDispatch();
+import TextField from "@mui/material/TextField";
 
-  const currentCondition = useConditionsSelector(
+function CurrentData() {
+  const dispatch = useAppDispatch();
+
+  const currentCondition = useAppSelector(
     (state) => state.conditions.currentCondition
   );
 
-  const currentConditionItem = useConditionsSelector((state) =>
+  const webhookData = useAppSelector((data) => data.webhookData.data);
+
+
+  const currentConditionItem = useAppSelector((state) =>
     state.conditions.conditions.find((item) => item.id === currentCondition)
   );
 
-  const [dataJson, setDataJson] = useState<any>();
   const [conditionText, setConditionText] = useState<string>(
     currentConditionItem?.conditionValue || ""
   );
@@ -31,15 +31,6 @@ function CurrentData() {
 
   const [pathIndicator, setPathIndicator] = useState<string[]>([]);
   const timer = useRef<NodeJS.Timeout | null>(null);
-
-  useEffect(() => {
-    const starCountRef = ref(database, "/data");
-    const unsubscribe = onValue(starCountRef, (snapshot) => {
-      const data = snapshot.val();
-      setDataJson(Object.values(data));
-    });
-    return () => unsubscribe();
-  }, []);
 
   useEffect(() => {
     setInputText(currentConditionItem?.inputValue || "");
@@ -94,13 +85,12 @@ function CurrentData() {
         value={conditionText}
       />
       <ul>
-        <ListItems array={dataJson}>
+        <ListItems array={webhookData}>
           {(item) => (
-            <li>
+            <li key={item.id}>
               <SingleWebhookData
                 conditionValue={conditionText}
                 pathIndicator={pathIndicator}
-                key={item.id}
                 singleJson={item}
               />
             </li>

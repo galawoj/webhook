@@ -1,8 +1,8 @@
 import { addConditionItem } from "../../store/conditions-slice";
-import { useConditionsDispatch } from "../../store/hooks";
+import { useAppDispatch } from "../../store/hooks";
 
 export default function AddConditionButton() {
-  const dispatch = useConditionsDispatch();
+  const dispatch = useAppDispatch();
 
   const addConditionHandler = () => {
     dispatch(addConditionItem());
