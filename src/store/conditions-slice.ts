@@ -4,6 +4,7 @@ export type ConditionItem = {
   id: number;
   inputValue: string;
   conditionValue: string;
+  request: { url: string; header: string; body: string };
 };
 
 type ConditionsState = {
@@ -17,6 +18,7 @@ const initialState: ConditionsState = {
       id: 1,
       inputValue: "",
       conditionValue: "",
+      request: { url: "", header: "", body: "" },
     },
   ],
 
@@ -32,6 +34,7 @@ export const conditionsSlice = createSlice({
         id: state.conditions[state.conditions.length - 1].id + 1,
         inputValue: "",
         conditionValue: "",
+        request: { url: "", header: "", body: "" },
       });
       state.currentCondition = state.conditions[state.conditions.length - 1].id;
     },
@@ -45,7 +48,7 @@ export const conditionsSlice = createSlice({
     setCurrentCondition(state, action: PayloadAction<number>) {
       state.currentCondition = action.payload;
     },
-    setInputValue(state, action: PayloadAction<string>) {
+    updateInputValue(state, action: PayloadAction<string>) {
       state.conditions = state.conditions.map((item) => {
         if (item.id === state.currentCondition) {
           return { ...item, inputValue: action.payload };
@@ -53,10 +56,43 @@ export const conditionsSlice = createSlice({
         return item;
       });
     },
-    setConditionValue(state, action: PayloadAction<string>) {
+    updateConditionValue(state, action: PayloadAction<string>) {
       state.conditions = state.conditions.map((item) => {
         if (item.id === state.currentCondition) {
           return { ...item, conditionValue: action.payload };
+        }
+        return item;
+      });
+    },
+    updateRequestHeader(state, action: PayloadAction<string>) {
+      state.conditions = state.conditions.map((item) => {
+        if (item.id === state.currentCondition) {
+          return {
+            ...item,
+            request: { ...item.request, header: action.payload },
+          };
+        }
+        return item;
+      });
+    },
+    updateRequestBody(state, action: PayloadAction<string>) {
+      state.conditions = state.conditions.map((item) => {
+        if (item.id === state.currentCondition) {
+          return {
+            ...item,
+            request: { ...item.request, body: action.payload },
+          };
+        }
+        return item;
+      });
+    },
+    updateRequestUrl(state, action: PayloadAction<string>) {
+      state.conditions = state.conditions.map((item) => {
+        if (item.id === state.currentCondition) {
+          return {
+            ...item,
+            request: { ...item.request, url: action.payload },
+          };
         }
         return item;
       });
@@ -68,6 +104,9 @@ export const {
   addConditionItem,
   setCurrentCondition,
   removeConditionItem,
-  setInputValue,
-  setConditionValue,
+  updateInputValue,
+  updateConditionValue,
+  updateRequestHeader,
+  updateRequestBody,
+  updateRequestUrl,
 } = conditionsSlice.actions;
