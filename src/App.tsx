@@ -5,6 +5,7 @@ import MainContainer from "./components/MainContainer";
 import ConditionsList from "./components/conditionsList/ConditionList.tsx";
 import RequestForm from "./components/conditionForm/RequestForm.tsx";
 import ConditionForm from "./components/conditionForm/ConditionForm.tsx";
+import SendRequest from "./components/sendRequest/SendRequest.tsx";
 
 export default function App() {
   return (
@@ -18,6 +19,9 @@ export default function App() {
       </Cart>
       <Cart>
         <CurrentData />
+      </Cart>
+      <Cart>
+        <SendRequest />
       </Cart>
     </MainContainer>
   );

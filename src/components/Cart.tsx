@@ -8,6 +8,7 @@ const Item = styled(Paper)(({ theme }) => ({
 
   ...theme.typography.body2,
   padding: theme.spacing(1),
+
   textAlign: "left",
   display: "flex",
   flexDirection: "column",
@@ -19,7 +20,7 @@ const Item = styled(Paper)(({ theme }) => ({
 
 export default function Cart({ children }: { children: React.ReactNode }) {
   return (
-    <Grid2 size={4}>
+    <Grid2 size={3}>
       <Item>{children}</Item>
     </Grid2>
   );
