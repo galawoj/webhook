@@ -16,36 +16,38 @@ export default function ConditionForm() {
     )
   );
 
-  const [conditionText, setConditionText] = useState<string>(
+  const [path, setPath] = useState<string>(
     currentConditionItem?.conditionValue || ""
   );
-  const [inputText, setInputText] = useState<string>(
+  const [value, setValue] = useState<string>(
     currentConditionItem?.inputValue || ""
   );
 
-  const timer = useRef<NodeJS.Timeout | null>(null);
+  const timerPath = useRef<NodeJS.Timeout | null>(null);
+
+  const timerValue = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
-    setInputText(currentConditionItem?.inputValue || "");
-    setConditionText(currentConditionItem?.conditionValue || "");
+    setPath(currentConditionItem?.inputValue || "");
+    setValue(currentConditionItem?.conditionValue || "");
   }, [currentConditionItem]);
 
-  function valueInputHandle(value: string) {
-    if (timer.current) {
-      clearTimeout(timer.current);
+  function pathHandle(value: string) {
+    if (timerPath.current) {
+      clearTimeout(timerPath.current);
     }
 
-    timer.current = setTimeout(() => {
+    timerPath.current = setTimeout(() => {
       dispatch(updateInputValue(value));
     }, 500);
   }
 
-  function valueConditionHandle(value: string) {
-    if (timer.current) {
-      clearTimeout(timer.current);
+  function valueHandle(value: string) {
+    if (timerValue.current) {
+      clearTimeout(timerValue.current);
     }
 
-    timer.current = setTimeout(() => {
+    timerValue.current = setTimeout(() => {
       dispatch(updateConditionValue(value));
     }, 500);
   }
@@ -70,10 +72,10 @@ export default function ConditionForm() {
           label="path"
           variant="outlined"
           onChange={(e) => {
-            setInputText(e.target.value);
-            valueInputHandle(e.target.value);
+            setPath(e.target.value);
+            pathHandle(e.target.value);
           }}
-          value={inputText}
+          value={path}
         />
         <div
           style={{
@@ -91,10 +93,10 @@ export default function ConditionForm() {
           label="value"
           variant="outlined"
           onChange={(e) => {
-            setConditionText(e.target.value);
-            valueConditionHandle(e.target.value);
+            setValue(e.target.value);
+            valueHandle(e.target.value);
           }}
-          value={conditionText}
+          value={value}
         />
       </div>
     </>

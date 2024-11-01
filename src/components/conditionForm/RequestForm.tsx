@@ -9,72 +9,77 @@ import {
 
 export default function RequestForm() {
   const dispatch = useAppDispatch();
-
   const currentConditionItem = useAppSelector((state) =>
     state.conditions.conditions.find(
       (item) => item.id === state.conditions.currentCondition
     )
   );
 
-  const [requestBody, setRequestBody] = useState<string>(
-    currentConditionItem?.request.body || ""
-  );
-  const [requestHeader_1, setRequestHeader_1] = useState<string>(
-    currentConditionItem?.request.header_1 || ""
-  );
-  const [requestHeader_2, setRequestHeader_2] = useState<string>(
-    currentConditionItem?.request.header_2 || ""
-  );
-  const [requestHeader_3, setRequestHeader_3] = useState<string>(
-    currentConditionItem?.request.header_3 || ""
-  );
-  const [requestUrl, setRequestUrl] = useState<string>(
-    currentConditionItem?.request.url || ""
-  );
+  // Stan formularza dla każdego pola
+  const [formState, setFormState] = useState({
+    requestBody: currentConditionItem?.request.body || "",
+    requestHeader_1: currentConditionItem?.request.header_1 || "",
+    requestHeader_2: currentConditionItem?.request.header_2 || "",
+    requestHeader_3: currentConditionItem?.request.header_3 || "",
+    requestUrl: currentConditionItem?.request.url || "",
+  });
 
-  const timer = useRef<NodeJS.Timeout | null>(null);
+  // Jeden obiekt do przechowywania timerów dla każdego pola
+  const timers = useRef<{ [key: string]: NodeJS.Timeout | null }>({
+    requestBody: null,
+    requestHeader_1: null,
+    requestHeader_2: null,
+    requestHeader_3: null,
+    requestUrl: null,
+  });
 
   useEffect(() => {
-    setRequestBody(currentConditionItem?.request.body || "");
-    setRequestHeader_1(currentConditionItem?.request.header_1 || "");
-    setRequestHeader_2(currentConditionItem?.request.header_2 || "");
-    setRequestHeader_3(currentConditionItem?.request.header_3 || "");
-    setRequestUrl(currentConditionItem?.request.url || "");
+    setFormState({
+      requestBody: currentConditionItem?.request.body || "",
+      requestHeader_1: currentConditionItem?.request.header_1 || "",
+      requestHeader_2: currentConditionItem?.request.header_2 || "",
+      requestHeader_3: currentConditionItem?.request.header_3 || "",
+      requestUrl: currentConditionItem?.request.url || "",
+    });
   }, [currentConditionItem]);
 
-  function valueHandle(
+  function handleInputChange(
     value: string,
-    type: "url" | "header_1" | "header_2" | "header_3" | "body"
+    field:
+      | "requestUrl"
+      | "requestHeader_1"
+      | "requestHeader_2"
+      | "requestHeader_3"
+      | "requestBody"
   ) {
-    if (timer.current) {
-      clearTimeout(timer.current);
-    }
-    if (type === "url") {
-      timer.current = setTimeout(() => {
-        dispatch(updateRequestUrl(value));
-      }, 500);
-    }
-    if (type === "header_1") {
-      timer.current = setTimeout(() => {
-        dispatch(updateRequestHeader({ header_1: value }));
-      }, 500);
-    }
-    if (type === "header_2") {
-      timer.current = setTimeout(() => {
-        dispatch(updateRequestHeader({ header_2: value }));
-      }, 500);
-    }
-    if (type === "header_3") {
-      timer.current = setTimeout(() => {
-        dispatch(updateRequestHeader({ header_3: value }));
-      }, 500);
+    // Aktualizacja stanu formularza dla natychmiastowego renderu
+    setFormState((prevState) => ({ ...prevState, [field]: value }));
+
+    // Kasowanie istniejącego timera dla konkretnego pola
+    if (timers.current[field]) {
+      clearTimeout(timers.current[field]!);
     }
 
-    if (type === "body") {
-      timer.current = setTimeout(() => {
-        dispatch(updateRequestBody(value));
-      }, 500);
-    }
+    // Ustawianie nowego timera dla konkretnego pola
+    timers.current[field] = setTimeout(() => {
+      switch (field) {
+        case "requestUrl":
+          dispatch(updateRequestUrl(value));
+          break;
+        case "requestHeader_1":
+          dispatch(updateRequestHeader({ header_1: value }));
+          break;
+        case "requestHeader_2":
+          dispatch(updateRequestHeader({ header_2: value }));
+          break;
+        case "requestHeader_3":
+          dispatch(updateRequestHeader({ header_3: value }));
+          break;
+        case "requestBody":
+          dispatch(updateRequestBody(value));
+          break;
+      }
+    }, 500);
   }
 
   return (
@@ -86,59 +91,50 @@ export default function RequestForm() {
         id="request-url"
         label="url"
         variant="outlined"
-        onChange={(e) => {
-          setRequestUrl(e.target.value);
-          valueHandle(e.target.value, "url");
-        }}
-        value={requestUrl}
+        onChange={(e) => handleInputChange(e.target.value, "requestUrl")}
+        value={formState.requestUrl}
         style={{ margin: 10 }}
       />
       <TextField
         id="request-header"
         label="header_1 (key:value)"
         variant="outlined"
-        onChange={(e) => {
-          setRequestHeader_1(e.target.value);
-          valueHandle(e.target.value, "header_1");
-        }}
-        value={requestHeader_1}
+        onChange={(e) => handleInputChange(e.target.value, "requestHeader_1")}
+        value={formState.requestHeader_1}
         style={{ margin: 10 }}
       />
       <TextField
-        id="request-header"
+        id="request-header-2"
         label="header_2 (key:value)"
         variant="outlined"
-        onChange={(e) => {
-          setRequestHeader_2(e.target.value);
-          valueHandle(e.target.value, "header_2");
-        }}
-        value={requestHeader_2}
+        onChange={(e) => handleInputChange(e.target.value, "requestHeader_2")}
+        value={formState.requestHeader_2}
         style={{ margin: 10 }}
       />
       <TextField
-        id="request-header"
+        id="request-header-3"
         label="header_3 (key:value)"
         variant="outlined"
-        onChange={(e) => {
-          setRequestHeader_3(e.target.value);
-          valueHandle(e.target.value, "header_3");
-        }}
-        value={requestHeader_3}
+        onChange={(e) => handleInputChange(e.target.value, "requestHeader_3")}
+        value={formState.requestHeader_3}
         style={{ margin: 10 }}
       />
-      <label htmlFor="request-body" style={{ textAlign: "center" }}>
-        body
+      <label
+        htmlFor="request-body"
+        style={{ textAlign: "center", margin: "10px 0" }}
+      >
+        Body
       </label>
       <textarea
-        name="body"
         id="request-body"
-        onChange={(e) => {
-          setRequestBody(e.target.value);
-          valueHandle(e.target.value, "body");
+        onChange={(e) => handleInputChange(e.target.value, "requestBody")}
+        value={formState.requestBody}
+        style={{
+          margin: 10,
+          resize: "none",
+          width: "100%",
+          minHeight: "100px",
         }}
-        value={requestBody}
-        aria-label="body"
-        style={{ margin: 10, resize: "none" }}
       ></textarea>
     </div>
   );
