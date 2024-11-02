@@ -1,10 +1,10 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-type webhookDataState = {
+type WebhookDataState = {
   data: any[];
 };
 
-const initialState: webhookDataState = {
+const initialState: WebhookDataState = {
   data: [],
 };
 

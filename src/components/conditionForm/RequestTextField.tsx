@@ -6,11 +6,11 @@ import {
   updateRequestUrl,
 } from "../../store/conditions-slice";
 
-type propsType = {
+type Props = {
   id: "url" | "header_1" | "header_2" | "header_3";
 };
 
-export default function RequestTextField({ id }: propsType) {
+export default function RequestTextField({ id }: Props) {
   const dispatch = useAppDispatch();
   const currentConditionItem = useAppSelector((state) =>
     state.conditions.conditions.find(
@@ -26,10 +26,7 @@ export default function RequestTextField({ id }: propsType) {
 
   const timers = useRef<NodeJS.Timeout | null>(null);
 
-  function handleInputChange(
-    value: string,
-    field: "url" | "header_1" | "header_2" | "header_3"
-  ) {
+  function handleInputChange(value: string, { id }: Props) {
     setFormState(value);
 
     if (timers.current) {
@@ -37,7 +34,7 @@ export default function RequestTextField({ id }: propsType) {
     }
 
     timers.current = setTimeout(() => {
-      switch (field) {
+      switch (id) {
         case "url":
           dispatch(updateRequestUrl(value));
           break;
@@ -59,7 +56,7 @@ export default function RequestTextField({ id }: propsType) {
       id={id}
       label={id + " (key:value)"}
       variant="outlined"
-      onChange={(e) => handleInputChange(e.target.value, id)}
+      onChange={(e) => handleInputChange(e.target.value, { id })}
       value={formState}
       style={{ margin: " 10px " }}
     />
