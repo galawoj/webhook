@@ -6,7 +6,7 @@ export default function MainContainer({
   children: React.ReactNode;
 }) {
   return (
-    <Box sx={{ width: "100%" }}>
+    <Box sx={{ width: "100vw" }}>
       <Grid2 container spacing={1} columns={{ xs: 4, sm: 12, md: 12 }}>
         {children}
       </Grid2>
