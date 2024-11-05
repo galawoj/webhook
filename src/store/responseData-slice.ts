@@ -1,11 +1,11 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 type ResponseDataState = {
-  data: any[];
+  response: any;
 };
 
 const initialState: ResponseDataState = {
-  data: [],
+  response: {},
 };
 
 export const responseDataSlice = createSlice({
@@ -13,7 +13,7 @@ export const responseDataSlice = createSlice({
   initialState,
   reducers: {
     updateResponseData(state, action: PayloadAction<any>) {
-      state.data = action.payload;
+      state.response = action.payload;
     },
   },
 });

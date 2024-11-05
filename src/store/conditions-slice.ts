@@ -9,7 +9,7 @@ export type ConditionItem = {
     header_1: string;
     header_2: string;
     header_3: string;
-    body: string;
+    body: {};
   };
 };
 
@@ -24,7 +24,7 @@ const initialState: ConditionsState = {
       id: 1,
       inputValue: "",
       conditionValue: "",
-      request: { url: "", header_1: "", header_2: "", header_3: "", body: "" },
+      request: { url: "", header_1: "", header_2: "", header_3: "", body: {} },
     },
   ],
 
@@ -92,7 +92,7 @@ export const conditionsSlice = createSlice({
         return item;
       });
     },
-    updateRequestBody(state, action: PayloadAction<string>) {
+    updateRequestBody(state, action: PayloadAction<{}>) {
       state.conditions = state.conditions.map((item) => {
         if (item.id === state.currentCondition) {
           return {

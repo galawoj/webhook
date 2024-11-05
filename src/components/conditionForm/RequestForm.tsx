@@ -1,5 +1,6 @@
 import RequestTextField from "./RequestTextField";
-import RequestTextArea from "./RequestTextArea";
+
+import RequestBody from "./RequestBody";
 
 export default function RequestForm() {
   return (
@@ -12,8 +13,7 @@ export default function RequestForm() {
       <RequestTextField id="header_1" />
       <RequestTextField id="header_2" />
       <RequestTextField id="header_3" />
-
-      <RequestTextArea id="body" />
+      <RequestBody />
     </div>
   );
 }

@@ -5,13 +5,14 @@ import MainContainer from "./components/MainContainer";
 import ConditionsList from "./components/conditionsList/ConditionList.tsx";
 import RequestForm from "./components/conditionForm/RequestForm.tsx";
 import ConditionForm from "./components/conditionForm/ConditionForm.tsx";
-import SendRequest from "./components/sendRequest/SendRequest.tsx";
+import SendRequest from "./components/conditionForm/SendRequestButton.tsx";
 
 import { useAppDispatch } from "./store/hooks";
 import { useEffect } from "react";
 import { updateWebhookData } from "./store/webhookData-slice";
 import { onValue, ref } from "firebase/database";
 import { database } from "./firebaseConfig";
+import Response from "./components/response/Response.tsx";
 
 export default function App() {
   const dispatch = useAppDispatch();
@@ -34,12 +35,13 @@ export default function App() {
       <Cart>
         <ConditionForm />
         <RequestForm />
+        <SendRequest />
       </Cart>
       <Cart>
         <CurrentData />
       </Cart>
       <Cart>
-        <SendRequest />
+        <Response />
       </Cart>
     </MainContainer>
   );
