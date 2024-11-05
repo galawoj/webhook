@@ -54,7 +54,7 @@ export default function RequestTextField({ id }: Props) {
   return (
     <TextField
       id={id}
-      label={id + " (key:value)"}
+      label={id + `${id !== "url" ? " (key:value)" : " (https://...)"}`}
       variant="outlined"
       onChange={(e) => handleInputChange(e.target.value, { id })}
       value={formState}
