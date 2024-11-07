@@ -2,6 +2,7 @@ import ReactJson from "react-json-view";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { updateRequestBody } from "../../store/conditions-slice";
 import elementFromObject from "../../utils/elementFromObject";
+import replaceValueInObject from "../../utils/replaceValueInObject";
 
 type RequestBody = {
   [key: string]: any; // lub zdefiniowane właściwości, np. field1: string;
@@ -29,19 +30,19 @@ export default function RequestBody() {
           "undefined"
         );
       });
-      if (replaceValue) {
-        data.new_value = replaceValue;
 
-        const newReqBody = { ...requestBody };
-
-        const key = data.name as keyof RequestBody;
-
-        newReqBody[key] = replaceValue;
+      console.log(replaceValue, data.new_value);
+      if (replaceValue !== data.new_value) {
+        const newReqBody = replaceValueInObject(
+          data.updated_src,
+          data.new_value,
+          replaceValue
+        );
 
         dispatch(updateRequestBody({ ...newReqBody }));
+      } else {
+        dispatch(updateRequestBody({ ...data.updated_src }));
       }
-    } else {
-      dispatch(updateRequestBody(data.updated_src));
     }
   }
 
