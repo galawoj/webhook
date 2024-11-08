@@ -5,7 +5,7 @@ import elementFromObject from "../../utils/elementFromObject";
 import replaceValueInObject from "../../utils/replaceValueInObject";
 
 type RequestBody = {
-  [key: string]: any; // lub zdefiniowane właściwości, np. field1: string;
+  [key: string]: any;
 };
 
 export default function RequestBody() {
@@ -20,8 +20,8 @@ export default function RequestBody() {
   const webhookData = useAppSelector((state) => state.webhookData.data);
 
   function onJsonChange(data: any) {
-    const reg = /{{(.*?)}}/g;
     if (typeof data.new_value === "string") {
+      const reg = /{{(.*?)}}/g;
       const replaceValue = data.new_value.replace(reg, (element: string) => {
         const path = element.slice(2, -2).split(".");
 
@@ -30,19 +30,12 @@ export default function RequestBody() {
           "undefined"
         );
       });
+      const updatedBody =
+        replaceValue !== data.new_value
+          ? replaceValueInObject(data.updated_src, data.new_value, replaceValue)
+          : data.updated_src;
 
-      console.log(replaceValue, data.new_value);
-      if (replaceValue !== data.new_value) {
-        const newReqBody = replaceValueInObject(
-          data.updated_src,
-          data.new_value,
-          replaceValue
-        );
-
-        dispatch(updateRequestBody({ ...newReqBody }));
-      } else {
-        dispatch(updateRequestBody({ ...data.updated_src }));
-      }
+      dispatch(updateRequestBody({ ...updatedBody }));
     }
   }
 
