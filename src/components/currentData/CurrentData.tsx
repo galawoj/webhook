@@ -2,6 +2,7 @@ import { useAppSelector } from "../../store/hooks";
 
 import SingleWebhookData from "./SingleWebhookData";
 import ListItems from "../ListItems";
+import CurrentConditionItem from "../CurrentConditionItem";
 
 function CurrentData() {
   const webhookData = useAppSelector((data) => data.webhookData.data);
@@ -14,7 +15,7 @@ function CurrentData() {
 
   return (
     <>
-      <div>{currentConditionItem?.id}</div>
+      <CurrentConditionItem />
       <header style={{ textAlign: "center", fontSize: "12pt" }}>
         <b>Webhooks</b>
       </header>

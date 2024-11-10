@@ -1,14 +1,20 @@
 import ReactJson from "react-json-view";
 import { useAppSelector } from "../../store/hooks";
+import CurrentConditionItem from "../CurrentConditionItem";
 
 export default function Response() {
-  const requestResponse = useAppSelector(
-    (state) => state.responseData.response
+  const currentRequestResponse = useAppSelector(
+    (state) =>
+      state.conditions.conditions.find(
+        (e) => e.id === state.conditions.currentCondition
+      )?.response
   );
 
-  console.log(requestResponse);
+  console.log(currentRequestResponse);
   return (
     <>
+      <CurrentConditionItem />
+
       <header style={{ textAlign: "center", fontSize: "12pt" }}>
         <b>Response</b>
       </header>
@@ -18,7 +24,7 @@ export default function Response() {
         displayDataTypes={false}
         collapsed={0}
         name={false}
-        src={requestResponse}
+        src={currentRequestResponse || {}}
       />
     </>
   );

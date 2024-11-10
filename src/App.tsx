@@ -5,7 +5,7 @@ import MainContainer from "./components/MainContainer";
 import ConditionsList from "./components/conditionsList/ConditionList.tsx";
 import RequestForm from "./components/conditionForm/RequestForm.tsx";
 import ConditionForm from "./components/conditionForm/ConditionForm.tsx";
-import SendRequest from "./components/conditionForm/SendRequestButton.tsx";
+import SendRequestButton from "./components/conditionForm/SendRequestButton.tsx";
 
 import { useAppDispatch } from "./store/hooks";
 import { useEffect } from "react";
@@ -35,7 +35,7 @@ export default function App() {
       <Cart>
         <ConditionForm />
         <RequestForm />
-        <SendRequest />
+        <SendRequestButton />
       </Cart>
       <Cart>
         <CurrentData />

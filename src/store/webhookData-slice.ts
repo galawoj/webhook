@@ -2,10 +2,12 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 type WebhookDataState = {
   data: any[];
+  changed: boolean;
 };
 
 const initialState: WebhookDataState = {
   data: [],
+  changed: false,
 };
 
 export const webhookDataSlice = createSlice({
@@ -14,6 +16,7 @@ export const webhookDataSlice = createSlice({
   reducers: {
     updateWebhookData(state, action: PayloadAction<any>) {
       state.data = action.payload;
+      state.changed = true;
     },
   },
 });

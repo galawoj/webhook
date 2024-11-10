@@ -11,6 +11,7 @@ export type ConditionItem = {
     header_3: string;
     body: {};
   };
+  response: {};
 };
 
 type ConditionsState = {
@@ -25,6 +26,7 @@ const initialState: ConditionsState = {
       inputValue: "",
       conditionValue: "",
       request: { url: "", header_1: "", header_2: "", header_3: "", body: {} },
+      response: {},
     },
   ],
 
@@ -47,6 +49,7 @@ export const conditionsSlice = createSlice({
           header_3: "",
           body: "",
         },
+        response: {},
       });
       state.currentCondition = state.conditions[state.conditions.length - 1].id;
     },
@@ -114,6 +117,17 @@ export const conditionsSlice = createSlice({
         return item;
       });
     },
+    updateResponseData(state, action: PayloadAction<any>) {
+      state.conditions = state.conditions.map((item) => {
+        if (item.id === state.currentCondition) {
+          return {
+            ...item,
+            response: action.payload,
+          };
+        }
+        return item;
+      });
+    },
   },
 });
 
@@ -126,4 +140,5 @@ export const {
   updateRequestHeader,
   updateRequestBody,
   updateRequestUrl,
+  updateResponseData,
 } = conditionsSlice.actions;

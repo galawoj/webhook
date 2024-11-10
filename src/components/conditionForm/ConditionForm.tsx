@@ -6,6 +6,7 @@ import {
   updateConditionValue,
 } from "../../store/conditions-slice";
 import TextField from "@mui/material/TextField";
+import CurrentConditionItem from "../CurrentConditionItem";
 
 export default function ConditionForm() {
   const dispatch = useAppDispatch();
@@ -54,7 +55,7 @@ export default function ConditionForm() {
 
   return (
     <>
-      <div>{currentConditionItem?.id}</div>
+      <CurrentConditionItem />
       <div style={{ display: "flex" }}>
         <div
           style={{

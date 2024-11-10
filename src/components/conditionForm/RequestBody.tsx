@@ -35,7 +35,7 @@ export default function RequestBody() {
           ? replaceValueInObject(data.updated_src, data.new_value, replaceValue)
           : data.updated_src;
 
-      dispatch(updateRequestBody({ ...updatedBody }));
+      dispatch(updateRequestBody(updatedBody));
     }
   }
 
