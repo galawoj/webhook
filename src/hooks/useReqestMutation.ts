@@ -1,6 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
-import { updateResponseData } from "../store/conditions-slice";
+import { updateCondResponseData } from "../store/conditions-slice";
 
 export const useRequestMutation = () => {
   const dispatch = useAppDispatch();
@@ -52,7 +52,7 @@ export const useRequestMutation = () => {
       return await response.json();
     },
     onSuccess: (responseData) => {
-      dispatch(updateResponseData(responseData));
+      dispatch(updateCondResponseData(responseData));
     },
     onError: (error) => {
       console.error("Mutation error:", error);

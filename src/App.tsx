@@ -3,11 +3,11 @@ import Cart from "./components/Cart";
 import MainContainer from "./components/MainContainer";
 
 import ConditionsList from "./components/conditionsList/ConditionList.tsx";
-import RequestForm from "./components/conditionForm/RequestForm.tsx";
+import RequestForm from "./components/requestForm/RequestForm.tsx";
 import ConditionForm from "./components/conditionForm/ConditionForm.tsx";
-import SendRequestButton from "./components/conditionForm/SendRequestButton.tsx";
+import SendRequestButton from "./components/requestForm/SendRequestButton.tsx";
 
-import { useAppDispatch } from "./store/hooks";
+import { useAppDispatch, useAppSelector } from "./store/hooks";
 import { useEffect } from "react";
 import { updateWebhookData } from "./store/webhookData-slice";
 import { onValue, ref } from "firebase/database";
@@ -16,6 +16,7 @@ import Response from "./components/response/Response.tsx";
 
 export default function App() {
   const dispatch = useAppDispatch();
+  const firstOrCondReq = useAppSelector((state) => state.firstRequest.isActive);
 
   useEffect(() => {
     const starCountRef = ref(database, "/data");
@@ -33,7 +34,7 @@ export default function App() {
         <ConditionsList />
       </Cart>
       <Cart>
-        <ConditionForm />
+        {!firstOrCondReq ? <ConditionForm /> : ""}
         <RequestForm />
         <SendRequestButton />
       </Cart>

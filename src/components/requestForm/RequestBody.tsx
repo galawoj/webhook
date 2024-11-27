@@ -1,6 +1,6 @@
 import ReactJson from "react-json-view";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import { updateRequestBody } from "../../store/conditions-slice";
+import { updateCondRequestBody } from "../../store/conditions-slice";
 import elementFromObject from "../../utils/elementFromObject";
 import replaceValueInObject from "../../utils/replaceValueInObject";
 
@@ -8,12 +8,24 @@ type RequestBody = {
   [key: string]: any;
 };
 
-export default function RequestBody() {
-  const requestBody = useAppSelector((state) =>
-    state.conditions.conditions.find(
-      (e) => e.id === state.conditions.currentCondition
-    )
-  )?.request.body as RequestBody;
+type RequestBodyProps = {
+  type: "firstReq" | "condReq";
+};
+
+export default function RequestBody({ type }: RequestBodyProps) {
+  const selectRequest = () => {
+    if (type === "condReq") {
+      return useAppSelector((state) =>
+        state.conditions.conditions.find(
+          (e) => e.id === state.conditions.currentCondition
+        )
+      )?.request.body;
+    } else if (type === "firstReq") {
+      useAppSelector((state) => state.firstRequest.request.body);
+    }
+  };
+
+  const currentRequestBody = selectRequest() as RequestBody;
 
   const dispatch = useAppDispatch();
 
@@ -35,7 +47,7 @@ export default function RequestBody() {
           ? replaceValueInObject(data.updated_src, data.new_value, replaceValue)
           : data.updated_src;
 
-      dispatch(updateRequestBody(updatedBody));
+      dispatch(updateCondRequestBody(updatedBody));
     }
   }
 
@@ -51,7 +63,7 @@ export default function RequestBody() {
         onEdit={(data) => onJsonChange(data)}
         onAdd={(data) => onJsonChange(data)}
         onDelete={(data) => onJsonChange(data)}
-        src={requestBody || {}}
+        src={currentRequestBody || {}}
       />
     </>
   );

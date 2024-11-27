@@ -79,7 +79,7 @@ export const conditionsSlice = createSlice({
         return item;
       });
     },
-    updateRequestHeader(
+    updateCondRequestHeader(
       state,
       action: PayloadAction<
         { header_1: string } | { header_2: string } | { header_3: string }
@@ -95,7 +95,7 @@ export const conditionsSlice = createSlice({
         return item;
       });
     },
-    updateRequestBody(state, action: PayloadAction<{}>) {
+    updateCondRequestBody(state, action: PayloadAction<{}>) {
       state.conditions = state.conditions.map((item) => {
         if (item.id === state.currentCondition) {
           return {
@@ -106,7 +106,7 @@ export const conditionsSlice = createSlice({
         return item;
       });
     },
-    updateRequestUrl(state, action: PayloadAction<string>) {
+    updateCondRequestUrl(state, action: PayloadAction<string>) {
       state.conditions = state.conditions.map((item) => {
         if (item.id === state.currentCondition) {
           return {
@@ -117,7 +117,7 @@ export const conditionsSlice = createSlice({
         return item;
       });
     },
-    updateResponseData(state, action: PayloadAction<any>) {
+    updateCondResponseData(state, action: PayloadAction<any>) {
       state.conditions = state.conditions.map((item) => {
         if (item.id === state.currentCondition) {
           return {
@@ -137,8 +137,8 @@ export const {
   removeConditionItem,
   updateInputValue,
   updateConditionValue,
-  updateRequestHeader,
-  updateRequestBody,
-  updateRequestUrl,
-  updateResponseData,
+  updateCondRequestHeader,
+  updateCondRequestBody,
+  updateCondRequestUrl,
+  updateCondResponseData,
 } = conditionsSlice.actions;
