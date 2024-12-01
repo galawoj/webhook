@@ -23,7 +23,7 @@ export default function Cart({
   color,
 }: {
   children: React.ReactNode;
-  color: string;
+  color?: string | false;
 }) {
   return (
     <Grid2 size={3}>
