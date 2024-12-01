@@ -1,4 +1,5 @@
 import { addConditionItem } from "../../store/conditions-slice";
+import { setFirstRequestActive } from "../../store/firstRequest-slice";
 import { useAppDispatch } from "../../store/hooks";
 
 export default function AddConditionButton() {
@@ -6,6 +7,7 @@ export default function AddConditionButton() {
 
   const addConditionHandler = () => {
     dispatch(addConditionItem());
+    dispatch(setFirstRequestActive(false));
   };
 
   return (

@@ -42,7 +42,7 @@ export const firstRequestSlice = createSlice({
     updateFirstRequestUrl(state, action: PayloadAction<string>) {
       state.request = { ...state.request, url: action.payload };
     },
-    setIsActive(state, action: PayloadAction<boolean>) {
+    setFirstRequestActive(state, action: PayloadAction<boolean>) {
       state.isActive = action.payload;
     },
   },
@@ -52,5 +52,5 @@ export const {
   updateFirstRequestHeader,
   updateFirstRequestBody,
   updateFirstRequestUrl,
-  setIsActive,
+  setFirstRequestActive,
 } = firstRequestSlice.actions;

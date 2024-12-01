@@ -18,10 +18,16 @@ const Item = styled(Paper)(({ theme }) => ({
   }),
 }));
 
-export default function Cart({ children }: { children: React.ReactNode }) {
+export default function Cart({
+  children,
+  color,
+}: {
+  children: React.ReactNode;
+  color: string;
+}) {
   return (
     <Grid2 size={3}>
-      <Item>{children}</Item>
+      <Item sx={{ background: `${color}` }}>{children}</Item>
     </Grid2>
   );
 }
