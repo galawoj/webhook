@@ -1,33 +1,18 @@
 import { Grid2 } from "@mui/material";
-import { styled } from "@mui/material/styles";
-import Paper from "@mui/material/Paper";
-
-const Item = styled(Paper)(({ theme }) => ({
-  backgroundColor: "#fff",
-  height: "100%",
-
-  ...theme.typography.body2,
-  padding: theme.spacing(1),
-
-  textAlign: "left",
-  display: "flex",
-  flexDirection: "column",
-  color: theme.palette.text.secondary,
-  ...theme.applyStyles("dark", {
-    backgroundColor: "#1A2027",
-  }),
-}));
+import { CartItem } from "./CartItem";
 
 export default function Cart({
   children,
-  color,
+  mode,
 }: {
   children: React.ReactNode;
-  color?: string | false;
+  mode?: "condition" | false;
 }) {
   return (
     <Grid2 size={3}>
-      <Item sx={{ background: `${color}` }}>{children}</Item>
+      <CartItem sx={{ background: `${mode === "condition" && "E0E0E0"}` }}>
+        {children}
+      </CartItem>
     </Grid2>
   );
 }

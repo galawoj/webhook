@@ -30,10 +30,10 @@ export default function App() {
 
   return (
     <MainContainer>
-      <Cart color="#E0E0E0">
+      <Cart mode="condition">
         <ConditionsList />
       </Cart>
-      <Cart color={!firstOrCondReq && "#E0E0E0"}>
+      <Cart mode={!firstOrCondReq && "condition"}>
         {!firstOrCondReq ? <ConditionForm /> : ""}
         <RequestForm />
         <SendRequestButton />
