@@ -15,7 +15,6 @@ function CurrentData() {
 
   return (
     <>
-      <CurrentConditionItem />
       <header style={{ textAlign: "center", fontSize: "12pt" }}>
         <b>Webhooks</b>
       </header>

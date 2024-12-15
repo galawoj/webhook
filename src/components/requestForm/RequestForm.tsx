@@ -22,22 +22,22 @@ export default function RequestForm() {
         )}
       </header>
       <RequestTextField
-        type={firstOrCondReq ? "condReq" : "condReq"}
+        type={firstOrCondReq ? "firstReq" : "condReq"}
         id="url"
       />
       <RequestTextField
-        type={firstOrCondReq ? "condReq" : "condReq"}
+        type={firstOrCondReq ? "firstReq" : "condReq"}
         id="header_1"
       />
       <RequestTextField
-        type={firstOrCondReq ? "condReq" : "condReq"}
+        type={firstOrCondReq ? "firstReq" : "condReq"}
         id="header_2"
       />
       <RequestTextField
-        type={firstOrCondReq ? "condReq" : "condReq"}
+        type={firstOrCondReq ? "firstReq" : "condReq"}
         id="header_3"
       />
-      <RequestBody type={firstOrCondReq ? "condReq" : "condReq"} />
+      <RequestBody type={firstOrCondReq ? "firstReq" : "condReq"} />
     </div>
   );
 }

@@ -39,10 +39,10 @@ export default function App() {
         <SendRequestButton />
       </Cart>
       <Cart>
-        <CurrentData />
+        <Response />
       </Cart>
       <Cart>
-        <Response />
+        <CurrentData />
       </Cart>
     </MainContainer>
   );

@@ -27,7 +27,7 @@ export default function RequestTextField({ id, type }: RequestTextField) {
           )?.request[id]
       );
     } else if (type === "firstReq") {
-      useAppSelector((state) => state.firstRequest.request);
+      return useAppSelector((state) => state.firstRequest.request[id]);
     }
   };
 
@@ -68,7 +68,7 @@ export default function RequestTextField({ id, type }: RequestTextField) {
         case "header_3":
           type === "condReq"
             ? dispatch(updateCondRequestHeader({ header_3: value }))
-            : dispatch(updateCondRequestHeader({ header_3: value }));
+            : dispatch(updateFirstRequestHeader({ header_3: value }));
           break;
       }
     }, 500);
