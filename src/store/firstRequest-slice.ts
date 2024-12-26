@@ -45,6 +45,9 @@ export const firstRequestSlice = createSlice({
     setFirstRequestActive(state, action: PayloadAction<boolean>) {
       state.isActive = action.payload;
     },
+    updateFirstRequestResponse(state, action: PayloadAction<any>) {
+      state.response = { ...action.payload };
+    },
   },
 });
 
@@ -53,4 +56,5 @@ export const {
   updateFirstRequestBody,
   updateFirstRequestUrl,
   setFirstRequestActive,
+  updateFirstRequestResponse,
 } = firstRequestSlice.actions;

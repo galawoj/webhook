@@ -1,17 +1,16 @@
 import { setFirstRequestActive } from "../../store/firstRequest-slice";
-import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import { useAppDispatch } from "../../store/hooks";
 import RequestBody from "./RequestBody";
 import RequestTextField from "./RequestTextField";
 
-export default function RequestForm() {
+export default function RequestForm({ mode }: { mode: boolean }) {
   const dispatch = useAppDispatch();
 
-  const firstOrCondReq = useAppSelector((state) => state.firstRequest.isActive);
   return (
     <div style={{ padding: "10px", display: "flex", flexDirection: "column" }}>
       <header style={{ textAlign: "center", fontSize: "12pt" }}>
-        <b>{firstOrCondReq ? `your first request` : "cond request"}</b>
-        {!firstOrCondReq && (
+        <b>{mode ? `Your First Request` : "Condition Request"}</b>
+        {!mode && (
           <button
             onClick={() => {
               dispatch(setFirstRequestActive(true));
@@ -21,23 +20,11 @@ export default function RequestForm() {
           </button>
         )}
       </header>
-      <RequestTextField
-        type={firstOrCondReq ? "firstReq" : "condReq"}
-        id="url"
-      />
-      <RequestTextField
-        type={firstOrCondReq ? "firstReq" : "condReq"}
-        id="header_1"
-      />
-      <RequestTextField
-        type={firstOrCondReq ? "firstReq" : "condReq"}
-        id="header_2"
-      />
-      <RequestTextField
-        type={firstOrCondReq ? "firstReq" : "condReq"}
-        id="header_3"
-      />
-      <RequestBody type={firstOrCondReq ? "firstReq" : "condReq"} />
+      <RequestTextField type={mode ? "firstReq" : "condReq"} id="url" />
+      <RequestTextField type={mode ? "firstReq" : "condReq"} id="header_1" />
+      <RequestTextField type={mode ? "firstReq" : "condReq"} id="header_2" />
+      <RequestTextField type={mode ? "firstReq" : "condReq"} id="header_3" />
+      <RequestBody type={mode ? "firstReq" : "condReq"} />
     </div>
   );
 }

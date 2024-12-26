@@ -2,21 +2,27 @@ import ReactJson from "react-json-view";
 import { useAppSelector } from "../../store/hooks";
 import CurrentConditionItem from "../CurrentConditionItem";
 
-export default function Response() {
-  const currentRequestResponse = useAppSelector(
-    (state) =>
-      state.conditions.conditions.find(
-        (e) => e.id === state.conditions.currentCondition
-      )?.response
-  );
+export default function Response({ mode }: { mode: boolean }) {
+  const selectResponse = () => {
+    if (!mode) {
+      return useAppSelector((state) =>
+        state.conditions.conditions.find(
+          (e) => e.id === state.conditions.currentCondition
+        )
+      )?.response;
+    } else {
+      return useAppSelector((state) => state.firstRequest.response);
+    }
+  };
 
-  console.log(currentRequestResponse);
+  const currentRequestResponse = selectResponse();
+
   return (
     <>
-      <CurrentConditionItem />
+      {!mode && <CurrentConditionItem />}
 
       <header style={{ textAlign: "center", fontSize: "12pt" }}>
-        <b>Response</b>
+        <b>{mode && "Your First"} Response</b>
       </header>
       <ReactJson
         displayObjectSize={false}

@@ -35,14 +35,14 @@ export default function App() {
       </Cart>
       <Cart mode={!firstOrCondReq && "condition"}>
         {!firstOrCondReq ? <ConditionForm /> : ""}
-        <RequestForm />
-        <SendRequestButton />
+        <RequestForm mode={firstOrCondReq} />
+        <SendRequestButton mode={firstOrCondReq} />
       </Cart>
       <Cart>
-        <Response />
+        <Response mode={true} />
       </Cart>
-      <Cart>
-        <CurrentData />
+      <Cart mode={!firstOrCondReq && "condition"}>
+        {firstOrCondReq ? <CurrentData /> : <Response mode={false} />}
       </Cart>
     </MainContainer>
   );

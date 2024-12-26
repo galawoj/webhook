@@ -1,7 +1,7 @@
 import { useRequestMutation } from "../../hooks/useReqestMutation";
 
-export default function SendRequestButton() {
-  const { mutate } = useRequestMutation();
+export default function SendRequestButton({ mode }: { mode: boolean }) {
+  const { mutate } = useRequestMutation(mode);
 
   return (
     <>

@@ -3,6 +3,7 @@ import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { updateCondRequestBody } from "../../store/conditions-slice";
 import elementFromObject from "../../utils/elementFromObject";
 import replaceValueInObject from "../../utils/replaceValueInObject";
+import { updateFirstRequestBody } from "../../store/firstRequest-slice";
 
 type RequestBody = {
   [key: string]: any;
@@ -21,7 +22,7 @@ export default function RequestBody({ type }: RequestBodyProps) {
         )
       )?.request.body;
     } else if (type === "firstReq") {
-      useAppSelector((state) => state.firstRequest.request.body);
+      return useAppSelector((state) => state.firstRequest.request.body);
     }
   };
 
@@ -47,7 +48,9 @@ export default function RequestBody({ type }: RequestBodyProps) {
           ? replaceValueInObject(data.updated_src, data.new_value, replaceValue)
           : data.updated_src;
 
-      dispatch(updateCondRequestBody(updatedBody));
+      type === "condReq"
+        ? dispatch(updateCondRequestBody(updatedBody))
+        : dispatch(updateFirstRequestBody(updatedBody));
     }
   }
 

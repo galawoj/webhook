@@ -1,15 +1,24 @@
 import { useMutation } from "@tanstack/react-query";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
 import { updateCondResponseData } from "../store/conditions-slice";
+import { updateFirstRequestResponse } from "../store/firstRequest-slice";
 
-export const useRequestMutation = () => {
+export const useRequestMutation = (mode: boolean) => {
   const dispatch = useAppDispatch();
 
-  const currentRequest = useAppSelector((state) =>
-    state.conditions.conditions.find(
-      (item) => item.id === state.conditions.currentCondition
-    )
-  )?.request;
+  const selectRequest = () => {
+    if (!mode) {
+      return useAppSelector((state) =>
+        state.conditions.conditions.find(
+          (e) => e.id === state.conditions.currentCondition
+        )
+      )?.request;
+    } else {
+      return useAppSelector((state) => state.firstRequest.request);
+    }
+  };
+
+  const currentRequest = selectRequest();
 
   const reg_k = /^[^:]+/;
   const reg = /(?<=:).*/;
@@ -52,7 +61,9 @@ export const useRequestMutation = () => {
       return await response.json();
     },
     onSuccess: (responseData) => {
-      dispatch(updateCondResponseData(responseData));
+      mode
+        ? dispatch(updateFirstRequestResponse(responseData))
+        : dispatch(updateCondResponseData(responseData));
     },
     onError: (error) => {
       console.error("Mutation error:", error);
