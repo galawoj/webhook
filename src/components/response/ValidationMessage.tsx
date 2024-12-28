@@ -1,18 +1,18 @@
 import { useEffect, useState } from "react";
-import ReactJson from "react-json-view";
+
 import elementFromObject from "../../utils/elementFromObject";
 
-type SingleWebhookDataProps = {
+type ValidationMessage = {
   singleJson: any;
   pathIndicator: string[];
   conditionValue: string;
 };
 
-export default function SingleWebhookData({
+export default function ValidationMessage({
   singleJson,
   pathIndicator,
   conditionValue,
-}: SingleWebhookDataProps) {
+}: ValidationMessage) {
   const [indicateElement, setIndicateElement] = useState<any>("");
   const [isFirstRender, setIsFirstRender] = useState<boolean>(true);
 
@@ -27,15 +27,6 @@ export default function SingleWebhookData({
 
   return (
     <>
-      <ReactJson
-        displayObjectSize={false}
-        iconStyle="square"
-        displayDataTypes={false}
-        collapsed={0}
-        name={false}
-        src={singleJson}
-      
-      />
       <span>{String(indicateElement)}</span>
       {String(indicateElement) === String(conditionValue) ? (
         <div>

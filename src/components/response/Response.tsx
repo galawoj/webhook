@@ -1,6 +1,7 @@
 import ReactJson from "react-json-view";
 import { useAppSelector } from "../../store/hooks";
 import CurrentConditionItem from "../CurrentConditionItem";
+import ValidationMessage from "./ValidationMessage";
 
 export default function Response({ mode }: { mode: boolean }) {
   const selectResponse = () => {
@@ -17,6 +18,14 @@ export default function Response({ mode }: { mode: boolean }) {
 
   const currentRequestResponse = selectResponse();
 
+  const currentConditionItem = useAppSelector((state) =>
+    state.conditions.conditions.find(
+      (item) => item.id === state.conditions.currentCondition
+    )
+  );
+
+  const firstOrCondReq = useAppSelector((state) => state.firstRequest.isActive);
+
   return (
     <>
       {!mode && <CurrentConditionItem />}
@@ -32,6 +41,13 @@ export default function Response({ mode }: { mode: boolean }) {
         name={false}
         src={currentRequestResponse || {}}
       />
+      {!firstOrCondReq && (
+        <ValidationMessage
+          singleJson={currentRequestResponse}
+          conditionValue={currentConditionItem!.conditionValue}
+          pathIndicator={currentConditionItem!.inputValue.split(".")}
+        />
+      )}
     </>
   );
 }

@@ -31,17 +31,18 @@ export default function RequestBody({ type }: RequestBodyProps) {
   const dispatch = useAppDispatch();
 
   const webhookData = useAppSelector((state) => state.webhookData.data);
+  const firstReqData = useAppSelector((state) => state.firstRequest.response);
 
   function onJsonChange(data: any) {
     if (typeof data.new_value === "string") {
       const reg = /{{(.*?)}}/g;
       const replaceValue = data.new_value.replace(reg, (element: string) => {
         const path = element.slice(2, -2).split(".");
-
-        return (
-          elementFromObject(webhookData[webhookData.length - 1], path) ||
-          "undefined"
-        );
+        const replaceSource =
+          type === "condReq"
+            ? firstReqData
+            : webhookData[webhookData.length - 1];
+        return elementFromObject(replaceSource, path) || "undefined";
       });
       const updatedBody =
         replaceValue !== data.new_value

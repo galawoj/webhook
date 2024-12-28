@@ -3,14 +3,8 @@ import { useAppSelector } from "../../store/hooks";
 import SingleWebhookData from "./SingleWebhookData";
 import ListItems from "../ListItems";
 
-function CurrentData() {
+function WebhookDataList() {
   const webhookData = useAppSelector((data) => data.webhookData.data);
-
-  const currentConditionItem = useAppSelector((state) =>
-    state.conditions.conditions.find(
-      (item) => item.id === state.conditions.currentCondition
-    )
-  );
 
   return (
     <>
@@ -21,11 +15,7 @@ function CurrentData() {
         <ListItems array={webhookData}>
           {(item) => (
             <li key={item.id}>
-              <SingleWebhookData
-                conditionValue={currentConditionItem!.conditionValue}
-                pathIndicator={currentConditionItem!.inputValue.split(".")}
-                singleJson={item}
-              />
+              <SingleWebhookData singleJson={item} />
             </li>
           )}
         </ListItems>
@@ -34,4 +24,4 @@ function CurrentData() {
   );
 }
 
-export default CurrentData;
+export default WebhookDataList;

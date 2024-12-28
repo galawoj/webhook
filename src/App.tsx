@@ -1,4 +1,4 @@
-import CurrentData from "./components/currentData/CurrentData";
+import WebhookDataList from "./components/webhookData/WebhookDataList.tsx";
 import Cart from "./components/Cart";
 import MainContainer from "./components/MainContainer";
 
@@ -42,7 +42,7 @@ export default function App() {
         <Response mode={true} />
       </Cart>
       <Cart mode={!firstOrCondReq && "condition"}>
-        {firstOrCondReq ? <CurrentData /> : <Response mode={false} />}
+        {firstOrCondReq ? <WebhookDataList /> : <Response mode={false} />}
       </Cart>
     </MainContainer>
   );
