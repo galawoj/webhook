@@ -11,7 +11,7 @@ function WebhookDataList() {
       <header style={{ textAlign: "center", fontSize: "12pt" }}>
         <b>Webhooks</b>
       </header>
-      <ul>
+      <ul style={{ padding: 0, margin: 0 }}>
         <ListItems array={webhookData}>
           {(item) => (
             <li key={item.id}>

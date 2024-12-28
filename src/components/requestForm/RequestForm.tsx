@@ -7,7 +7,7 @@ export default function RequestForm({ mode }: { mode: boolean }) {
   const dispatch = useAppDispatch();
 
   return (
-    <div style={{ padding: "10px", display: "flex", flexDirection: "column" }}>
+    <>
       <header style={{ textAlign: "center", fontSize: "12pt" }}>
         <b>{mode ? `Your First Request` : "Condition Request"}</b>
         {!mode && (
@@ -25,6 +25,6 @@ export default function RequestForm({ mode }: { mode: boolean }) {
       <RequestTextField type={mode ? "firstReq" : "condReq"} id="header_2" />
       <RequestTextField type={mode ? "firstReq" : "condReq"} id="header_3" />
       <RequestBody type={mode ? "firstReq" : "condReq"} />
-    </div>
+    </>
   );
 }

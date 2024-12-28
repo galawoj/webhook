@@ -11,7 +11,11 @@ export default function Cart({
   return (
     <Grid2 size={3}>
       <CartItem sx={{ background: `${mode === "condition" && "#E0E0E0"}` }}>
-        {children}
+        <div
+          style={{ padding: "10px", display: "flex", flexDirection: "column" }}
+        >
+          {children}
+        </div>
       </CartItem>
     </Grid2>
   );
