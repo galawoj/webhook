@@ -12,6 +12,7 @@ export default function RequestForm({ mode }: { mode: boolean }) {
         <b>{mode ? `Your First Request` : "Condition Request"}</b>
         {!mode && (
           <button
+            style={{ margin: "10px" }}
             onClick={() => {
               dispatch(setFirstRequestActive(true));
             }}

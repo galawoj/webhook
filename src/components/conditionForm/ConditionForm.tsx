@@ -52,7 +52,7 @@ export default function ConditionForm() {
       dispatch(updateConditionValue(value));
     }, 500);
   }
-
+  console.log(currentConditionItem?.isValid);
   return (
     <>
       <CurrentConditionItem />

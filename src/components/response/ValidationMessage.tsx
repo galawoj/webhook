@@ -1,6 +1,8 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 import elementFromObject from "../../utils/elementFromObject";
+import { useAppDispatch } from "../../store/hooks";
+import { updateValidation } from "../../store/conditions-slice";
 
 type ValidationMessage = {
   singleJson: any;
@@ -13,22 +15,23 @@ export default function ValidationMessage({
   pathIndicator,
   conditionValue,
 }: ValidationMessage) {
-  const [indicateElement, setIndicateElement] = useState<any>("");
-  const [isFirstRender, setIsFirstRender] = useState<boolean>(true);
+  const dispatch = useAppDispatch();
+
+  const extractedValue = useMemo(() => {
+    const value = elementFromObject(singleJson, pathIndicator);
+    return value !== undefined ? String(value) : "undefined";
+  }, [singleJson, pathIndicator]);
+
+  const isValidCondition = extractedValue === String(conditionValue);
 
   useEffect(() => {
-    if (isFirstRender) {
-      setIsFirstRender(false);
-      return;
-    }
-
-    setIndicateElement(elementFromObject(singleJson, pathIndicator));
-  }, [pathIndicator]);
+    dispatch(updateValidation(isValidCondition));
+  }, [isValidCondition]);
 
   return (
     <>
-      <span>{String(indicateElement)}</span>
-      {String(indicateElement) === String(conditionValue) ? (
+      <span>{extractedValue}</span>
+      {isValidCondition ? (
         <div>
           <b>valid!</b>
         </div>

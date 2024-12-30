@@ -5,7 +5,7 @@ import MainContainer from "./components/MainContainer";
 import ConditionsList from "./components/conditionsList/ConditionList.tsx";
 import RequestForm from "./components/requestForm/RequestForm.tsx";
 import ConditionForm from "./components/conditionForm/ConditionForm.tsx";
-import SendRequestButton from "./components/requestForm/SendRequestButton.tsx";
+import SendFirstRequestButton from "./components/requestForm/SendFirstRequestButton.tsx";
 
 import { useAppDispatch, useAppSelector } from "./store/hooks";
 import { useEffect } from "react";
@@ -13,6 +13,7 @@ import { updateWebhookData } from "./store/webhookData-slice";
 import { onValue, ref } from "firebase/database";
 import { database } from "./firebaseConfig";
 import Response from "./components/response/Response.tsx";
+import SendAllCondRequestButton from "./components/conditionsList/SendAllCondRequestButton.tsx";
 
 export default function App() {
   const dispatch = useAppDispatch();
@@ -32,11 +33,12 @@ export default function App() {
     <MainContainer>
       <Cart mode="condition">
         <ConditionsList />
+        <SendAllCondRequestButton />
       </Cart>
       <Cart mode={!firstOrCondReq && "condition"}>
-        {!firstOrCondReq ? <ConditionForm /> : ""}
+        {!firstOrCondReq && <ConditionForm />}
         <RequestForm mode={firstOrCondReq} />
-        <SendRequestButton mode={firstOrCondReq} />
+        {firstOrCondReq && <SendFirstRequestButton />}
       </Cart>
       <Cart>
         <Response mode={true} />

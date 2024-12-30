@@ -4,6 +4,7 @@ export type ConditionItem = {
   id: number;
   inputValue: string;
   conditionValue: string;
+  isValid: boolean;
   request: {
     url: string;
     header_1: string;
@@ -25,6 +26,7 @@ const initialState: ConditionsState = {
       id: 1,
       inputValue: "",
       conditionValue: "",
+      isValid: false,
       request: { url: "", header_1: "", header_2: "", header_3: "", body: {} },
       response: {},
     },
@@ -42,6 +44,7 @@ export const conditionsSlice = createSlice({
         id: state.conditions[state.conditions.length - 1].id + 1,
         inputValue: "",
         conditionValue: "",
+        isValid: false,
         request: {
           url: "",
           header_1: "",
@@ -117,12 +120,26 @@ export const conditionsSlice = createSlice({
         return item;
       });
     },
-    updateCondResponseData(state, action: PayloadAction<any>) {
+    updateCondResponseData(
+      state,
+      action: PayloadAction<{ condition: number; response: any }>
+    ) {
+      state.conditions = state.conditions.map((item) => {
+        if (item.id === action.payload.condition) {
+          return {
+            ...item,
+            response: action.payload.response,
+          };
+        }
+        return item;
+      });
+    },
+    updateValidation(state, action: PayloadAction<boolean>) {
       state.conditions = state.conditions.map((item) => {
         if (item.id === state.currentCondition) {
           return {
             ...item,
-            response: action.payload,
+            isValid: action.payload,
           };
         }
         return item;
@@ -141,4 +158,5 @@ export const {
   updateCondRequestBody,
   updateCondRequestUrl,
   updateCondResponseData,
+  updateValidation,
 } = conditionsSlice.actions;

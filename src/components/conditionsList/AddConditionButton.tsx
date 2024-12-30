@@ -12,7 +12,7 @@ export default function AddConditionButton() {
 
   return (
     <button
-      style={{ backgroundColor: "rgb(186, 73, 73)" }}
+      style={{ backgroundColor: "rgb(186, 73, 73)", margin: 5 }}
       onClick={addConditionHandler}
     >
       add

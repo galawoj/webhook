@@ -5,6 +5,7 @@ import {
 import { setFirstRequestActive } from "../../store/firstRequest-slice";
 import { useAppDispatch } from "../../store/hooks";
 
+
 type ContiodionButtonType = {
   id: number;
 };
@@ -18,7 +19,10 @@ export default function ConditionButton({ id }: ContiodionButtonType) {
   };
 
   return (
-    <div style={{ display: "flex", justifyContent: "space-around" }}>
+    <div
+      
+      style={{ display: "flex", justifyContent: "space-around", margin: 2.5 }}
+    >
       <button onClick={buttonHandler}>condition {id}</button>
       <button onClick={() => dispatch(removeConditionItem(id))}>-</button>
     </div>

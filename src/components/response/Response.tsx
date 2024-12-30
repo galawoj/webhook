@@ -41,7 +41,7 @@ export default function Response({ mode }: { mode: boolean }) {
         name={false}
         src={currentRequestResponse || {}}
       />
-      {!firstOrCondReq && (
+      {!firstOrCondReq && mode && (
         <ValidationMessage
           singleJson={currentRequestResponse}
           conditionValue={currentConditionItem!.conditionValue}
