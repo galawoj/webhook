@@ -1,8 +1,8 @@
-import { useEffect, useMemo, useState } from "react";
+import { useMemo } from "react";
 
 import elementFromObject from "../../utils/elementFromObject";
-import { useAppDispatch } from "../../store/hooks";
-import { updateValidation } from "../../store/conditions-slice";
+// import { useAppDispatch } from "../../store/hooks";
+// import { updateValidation } from "../../store/conditions-slice";
 
 type ValidationMessage = {
   singleJson: any;
@@ -15,7 +15,7 @@ export default function ValidationMessage({
   pathIndicator,
   conditionValue,
 }: ValidationMessage) {
-  const dispatch = useAppDispatch();
+  // const dispatch = useAppDispatch();
 
   const extractedValue = useMemo(() => {
     const value = elementFromObject(singleJson, pathIndicator);
@@ -24,9 +24,9 @@ export default function ValidationMessage({
 
   const isValidCondition = extractedValue === String(conditionValue);
 
-  useEffect(() => {
-    dispatch(updateValidation(isValidCondition));
-  }, [isValidCondition]);
+  // useEffect(() => {
+  //   dispatch(updateValidation(isValidCondition));
+  // }, [isValidCondition]);
 
   return (
     <>
