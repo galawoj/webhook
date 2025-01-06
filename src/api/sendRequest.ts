@@ -44,17 +44,17 @@ export const sendRequest = async <T extends CondReq | FirstReq>(request: T) => {
       headers,
     });
 
-    dispatch(() => {
-      if (mode === "condReq") {
-        const { condition } = request as CondReq;
+    if (mode === "condReq") {
+      const { condition } = request as CondReq;
+      dispatch(
         updateCondResponseData({
           condition,
           response: response.data,
-        });
-      } else {
-        updateFirstRequestResponse(response.data);
-      }
-    });
+        })
+      );
+    } else if (mode === "firstReq") {
+      dispatch(updateFirstRequestResponse(response.data));
+    }
 
     return response.data;
   } catch (err) {

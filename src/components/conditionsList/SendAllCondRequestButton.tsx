@@ -22,7 +22,7 @@ export default function SendAllCondRequestButton() {
         ) {
           console.log(id);
           await sendRequest<CondReq>({
-            dispatch: dispatch,
+            dispatch,
             condition: id,
             currentRequest: request,
             mode: "condReq",
