@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-export type firstRequestState = {
+export type FirstRequestState = {
   request: {
     url: string;
     header_1: string;
@@ -12,7 +12,7 @@ export type firstRequestState = {
   isActive: boolean;
 };
 
-const initialState: firstRequestState = {
+const initialState: FirstRequestState = {
   request: {
     url: "",
     header_1: "",

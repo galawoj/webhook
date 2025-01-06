@@ -1,6 +1,6 @@
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import elementFromObject from "../../utils/elementFromObject";
-import { sendAllCondRequest } from "../../api/sendAllCondRequest";
+import { CondReq, sendRequest } from "../../api/sendRequest";
 
 export default function SendAllCondRequestButton() {
   const allConditions = useAppSelector((state) => state.conditions.conditions);
@@ -21,7 +21,12 @@ export default function SendAllCondRequestButton() {
           extractedValue === String(conditionValue)
         ) {
           console.log(id);
-          await sendAllCondRequest(dispatch, id, request);
+          await sendRequest<CondReq>({
+            dispatch: dispatch,
+            condition: id,
+            currentRequest: request,
+            mode: "condReq",
+          });
         }
       }
     } catch (err) {

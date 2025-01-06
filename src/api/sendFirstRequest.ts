@@ -2,7 +2,7 @@ import axios from "axios";
 
 import { AppDispatch } from "../store/store";
 import {
-  firstRequestState,
+  FirstRequestState,
   updateFirstRequestResponse,
 } from "../store/firstRequest-slice";
 
@@ -19,7 +19,7 @@ const parseHeader = (header: string | undefined) => {
 export const sendFirstRequest = async (
   dispatch: AppDispatch,
 
-  currentRequest: firstRequestState["request"]
+  currentRequest: FirstRequestState["request"]
 ) => {
   const headers = {
     "Content-Type": "application/json",

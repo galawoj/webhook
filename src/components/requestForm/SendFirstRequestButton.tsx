@@ -1,4 +1,4 @@
-import { sendFirstRequest } from "../../api/sendFirstRequest";
+import { FirstReq, sendRequest } from "../../api/sendRequest";
 
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 
@@ -8,8 +8,12 @@ export default function SendFirstRequestButton() {
 
   const buttonHandler = async () => {
     try {
-      await sendFirstRequest(dispatch, firstRequest);
-    } catch  (err) {
+      await sendRequest<FirstReq>({
+        dispatch,
+        currentRequest: firstRequest,
+        mode: "firstReq",
+      });
+    } catch (err) {
       if (err instanceof Error) {
         console.error("Error:", err.message);
       } else {
