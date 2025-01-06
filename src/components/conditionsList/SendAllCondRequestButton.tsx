@@ -1,6 +1,6 @@
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import elementFromObject from "../../utils/elementFromObject";
-import { sendRequest } from "../../utils/sendRequest";
+import { sendAllCondRequest } from "../../api/sendAllCondRequest";
 
 export default function SendAllCondRequestButton() {
   const allConditions = useAppSelector((state) => state.conditions.conditions);
@@ -21,7 +21,7 @@ export default function SendAllCondRequestButton() {
           extractedValue === String(conditionValue)
         ) {
           console.log(id);
-          await sendRequest(dispatch, id, request); // sendRequest is used instead of mutate()
+          await sendAllCondRequest(dispatch, id, request);
         }
       }
     } catch (err) {

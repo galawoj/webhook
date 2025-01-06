@@ -1,9 +1,9 @@
 import axios from "axios";
-
 import {
   ConditionItem,
   updateCondResponseData,
 } from "../store/conditions-slice";
+import { AppDispatch } from "../store/store";
 
 const parseHeader = (header: string | undefined) => {
   const reg_k = /^[^:]+/;
@@ -15,8 +15,8 @@ const parseHeader = (header: string | undefined) => {
   return key ? { [key]: value } : {};
 };
 
-export const sendRequest = async (
-  dispatch: any,
+export const sendAllCondRequest = async (
+  dispatch: AppDispatch,
   condition: number,
   currentRequest: ConditionItem["request"]
 ) => {

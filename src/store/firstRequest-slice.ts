@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-type firstRequestState = {
+export type firstRequestState = {
   request: {
     url: string;
     header_1: string;
