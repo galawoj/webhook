@@ -1,7 +1,9 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { RequestMethod } from "../types/requestMethod";
 
 export type FirstRequestState = {
   request: {
+    method: RequestMethod;
     url: string;
     header_1: string;
     header_2: string;
@@ -14,6 +16,7 @@ export type FirstRequestState = {
 
 const initialState: FirstRequestState = {
   request: {
+    method: "POST",
     url: "",
     header_1: "",
     header_2: "",
@@ -28,6 +31,9 @@ export const firstRequestSlice = createSlice({
   name: "firstRequest",
   initialState,
   reducers: {
+    setFirstRequestRequestMethod(state, action: PayloadAction<"POST" | "GET">) {
+      state.request.method = action.payload;
+    },
     updateFirstRequestHeader(
       state,
       action: PayloadAction<
@@ -52,6 +58,7 @@ export const firstRequestSlice = createSlice({
 });
 
 export const {
+  setFirstRequestRequestMethod,
   updateFirstRequestHeader,
   updateFirstRequestBody,
   updateFirstRequestUrl,

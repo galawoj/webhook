@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { RequestMethod } from "../types/requestMethod";
 
 export type ConditionItem = {
   id: number;
@@ -6,6 +7,7 @@ export type ConditionItem = {
   conditionValue: string;
   isValid: boolean;
   request: {
+    method: RequestMethod;
     url: string;
     header_1: string;
     header_2: string;
@@ -27,7 +29,14 @@ const initialState: ConditionsState = {
       inputValue: "",
       conditionValue: "",
       isValid: false,
-      request: { url: "", header_1: "", header_2: "", header_3: "", body: {} },
+      request: {
+        method: "POST",
+        url: "",
+        header_1: "",
+        header_2: "",
+        header_3: "",
+        body: {},
+      },
       response: {},
     },
   ],
@@ -46,6 +55,7 @@ export const conditionsSlice = createSlice({
         conditionValue: "",
         isValid: false,
         request: {
+          method: "POST",
           url: "",
           header_1: "",
           header_2: "",
@@ -78,6 +88,17 @@ export const conditionsSlice = createSlice({
       state.conditions = state.conditions.map((item) => {
         if (item.id === state.currentCondition) {
           return { ...item, conditionValue: action.payload };
+        }
+        return item;
+      });
+    },
+    setCondRequestMethod(state, action: PayloadAction<"POST" | "GET">) {
+      state.conditions = state.conditions.map((item) => {
+        if (item.id === state.currentCondition) {
+          return {
+            ...item,
+            request: { ...item.request, method: action.payload },
+          };
         }
         return item;
       });
@@ -154,6 +175,7 @@ export const {
   removeConditionItem,
   updateInputValue,
   updateConditionValue,
+  setCondRequestMethod,
   updateCondRequestHeader,
   updateCondRequestBody,
   updateCondRequestUrl,

@@ -1,11 +1,8 @@
 import axios from "axios";
-import {
-  ConditionItem,
-  updateCondResponseData,
-} from "../store/conditions-slice";
-import { FirstRequestState } from "../store/firstRequest-slice";
-import { AppDispatch } from "../store/store";
+import { CondReq } from "../types/condReq";
+import { updateCondResponseData } from "../store/conditions-slice";
 import { updateFirstRequestResponse } from "../store/firstRequest-slice";
+import { FirstReq } from "../types/firstReq";
 
 const parseHeader = (header: string | undefined) => {
   const reg_k = /^[^:]+/;
@@ -15,18 +12,6 @@ const parseHeader = (header: string | undefined) => {
   const key = header.match(reg_k)?.[0];
   const value = header.match(reg)?.[0];
   return key ? { [key]: value } : {};
-};
-
-export type CondReq = {
-  dispatch: AppDispatch;
-  condition: number;
-  currentRequest: ConditionItem["request"];
-  mode: "condReq";
-};
-export type FirstReq = {
-  dispatch: AppDispatch;
-  currentRequest: FirstRequestState["request"];
-  mode: "firstReq";
 };
 
 export const sendRequest = async <T extends CondReq | FirstReq>(request: T) => {
@@ -40,8 +25,11 @@ export const sendRequest = async <T extends CondReq | FirstReq>(request: T) => {
   };
 
   try {
-    const response = await axios.post(currentRequest.url, currentRequest.body, {
-      headers,
+    const response = await axios({
+      method: currentRequest.method,
+      url: currentRequest.url,
+      data: currentRequest.body,
+      headers: headers,
     });
 
     if (mode === "condReq") {

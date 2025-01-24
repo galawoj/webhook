@@ -1,5 +1,5 @@
-import { FirstReq, sendRequest } from "../../api/sendRequest";
-
+import { sendRequest } from "../../api/sendRequest";
+import { FirstReq } from "../../types/firstReq";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 
 export default function SendFirstRequestButton() {

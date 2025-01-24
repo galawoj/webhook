@@ -1,6 +1,7 @@
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import elementFromObject from "../../utils/elementFromObject";
-import { CondReq, sendRequest } from "../../api/sendRequest";
+import { sendRequest } from "../../api/sendRequest";
+import { CondReq } from "../../types/condReq";
 
 export default function SendAllCondRequestButton() {
   const allConditions = useAppSelector((state) => state.conditions.conditions);
@@ -14,7 +15,6 @@ export default function SendAllCondRequestButton() {
           firstResponse,
           inputValue.split(".")
         );
-
         if (
           conditionValue &&
           inputValue &&

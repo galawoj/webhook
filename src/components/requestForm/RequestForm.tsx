@@ -1,5 +1,6 @@
 import { setFirstRequestActive } from "../../store/firstRequest-slice";
 import { useAppDispatch } from "../../store/hooks";
+import SelectRequestMethod from "../SelectRequestMethod";
 import RequestBody from "./RequestBody";
 import RequestTextField from "./RequestTextField";
 
@@ -21,6 +22,7 @@ export default function RequestForm({ mode }: { mode: boolean }) {
           </button>
         )}
       </header>
+      <SelectRequestMethod mode={mode ? "firstReq" : "condReq"} />
       <RequestTextField type={mode ? "firstReq" : "condReq"} id="url" />
       <RequestTextField type={mode ? "firstReq" : "condReq"} id="header_1" />
       <RequestTextField type={mode ? "firstReq" : "condReq"} id="header_2" />
