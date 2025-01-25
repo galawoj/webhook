@@ -58,9 +58,9 @@ Once your webhook is successfully sent, it will appear in the dedicated window o
 
 #### Sending Request:
 
-![Request window](./images/request.jpg)
-
 In this section, you can create your own custom request by selecting the HTTP method, defining headers, adding a body, and then sending it.
+
+![Request window](./images/request.jpg)
 
 The main feature of this functionality is the ability to create a request based on an incoming webhook. If you want to reference data from the webhook in the request body, simply use double curly braces {{ }}
 
