@@ -1,16 +1,23 @@
 import { Grid2 } from "@mui/material";
 import { CartItem } from "./CartItem";
+import { useAppSelector } from "../store/hooks";
 
 export default function Cart({
   children,
-  mode,
+  bgColor,
 }: {
   children: React.ReactNode;
-  mode?: "condition" | false;
+  bgColor?: string;
 }) {
+  const isFirstReqActive = useAppSelector(
+    (state) => state.firstRequest.isActive
+  );
+
+  const currentBgColor = bgColor ? bgColor : !isFirstReqActive && "#E0E0E0";
+
   return (
     <Grid2 size={3}>
-      <CartItem sx={{ background: `${mode === "condition" && "#E0E0E0"}` }}>
+      <CartItem sx={{ background: `${currentBgColor}` }}>
         <div
           style={{ padding: "10px", display: "flex", flexDirection: "column" }}
         >

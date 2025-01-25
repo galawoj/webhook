@@ -12,21 +12,24 @@ import {
 
 type RequestTextField = {
   id: "url" | "header_1" | "header_2" | "header_3";
-  type: "firstReq" | "condReq";
 };
 
-export default function RequestTextField({ id, type }: RequestTextField) {
+export default function RequestTextField({ id }: RequestTextField) {
   const dispatch = useAppDispatch();
 
+  const isFirstReqActive = useAppSelector(
+    (state) => state.firstRequest.isActive
+  );
+
   const selectRequest = () => {
-    if (type === "condReq") {
+    if (!isFirstReqActive) {
       return useAppSelector(
         (state) =>
           state.conditions.conditions.find(
             (item) => item.id === state.conditions.currentCondition
           )?.request[id]
       );
-    } else if (type === "firstReq") {
+    } else {
       return useAppSelector((state) => state.firstRequest.request[id]);
     }
   };
@@ -51,22 +54,22 @@ export default function RequestTextField({ id, type }: RequestTextField) {
     timers.current = setTimeout(() => {
       switch (id) {
         case "url":
-          type === "condReq"
+          !isFirstReqActive
             ? dispatch(updateCondRequestUrl(value))
             : dispatch(updateFirstRequestUrl(value));
           break;
         case "header_1":
-          type === "condReq"
+          !isFirstReqActive
             ? dispatch(updateCondRequestHeader({ header_1: value }))
             : dispatch(updateFirstRequestHeader({ header_1: value }));
           break;
         case "header_2":
-          type === "condReq"
+          !isFirstReqActive
             ? dispatch(updateCondRequestHeader({ header_2: value }))
             : dispatch(updateFirstRequestHeader({ header_2: value }));
           break;
         case "header_3":
-          type === "condReq"
+          !isFirstReqActive
             ? dispatch(updateCondRequestHeader({ header_3: value }))
             : dispatch(updateFirstRequestHeader({ header_3: value }));
           break;

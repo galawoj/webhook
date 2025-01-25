@@ -9,19 +9,19 @@ type RequestBody = {
   [key: string]: any;
 };
 
-type RequestBodyProps = {
-  type: "firstReq" | "condReq";
-};
+export default function RequestBody() {
+  const isFirstReqActive = useAppSelector(
+    (state) => state.firstRequest.isActive
+  );
 
-export default function RequestBody({ type }: RequestBodyProps) {
   const selectRequest = () => {
-    if (type === "condReq") {
+    if (!isFirstReqActive) {
       return useAppSelector((state) =>
         state.conditions.conditions.find(
           (e) => e.id === state.conditions.currentCondition
         )
       )?.request.body;
-    } else if (type === "firstReq") {
+    } else {
       return useAppSelector((state) => state.firstRequest.request.body);
     }
   };
@@ -38,10 +38,9 @@ export default function RequestBody({ type }: RequestBodyProps) {
       const reg = /{{(.*?)}}/g;
       const replaceValue = data.new_value.replace(reg, (element: string) => {
         const path = element.slice(2, -2).split(".");
-        const replaceSource =
-          type === "condReq"
-            ? firstReqData
-            : webhookData[webhookData.length - 1];
+        const replaceSource = !isFirstReqActive
+          ? firstReqData
+          : webhookData[webhookData.length - 1];
         return elementFromObject(replaceSource, path) || "undefined";
       });
       const updatedBody =
@@ -49,7 +48,7 @@ export default function RequestBody({ type }: RequestBodyProps) {
           ? replaceValueInObject(data.updated_src, data.new_value, replaceValue)
           : data.updated_src;
 
-      type === "condReq"
+      !isFirstReqActive
         ? dispatch(updateCondRequestBody(updatedBody))
         : dispatch(updateFirstRequestBody(updatedBody));
     }

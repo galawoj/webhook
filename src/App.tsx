@@ -17,7 +17,9 @@ import SendAllCondRequestButton from "./components/conditionsList/SendAllCondReq
 
 export default function App() {
   const dispatch = useAppDispatch();
-  const firstOrCondReq = useAppSelector((state) => state.firstRequest.isActive);
+  const isFirstReqActive = useAppSelector(
+    (state) => state.firstRequest.isActive
+  );
 
   useEffect(() => {
     const starCountRef = ref(database, "/data");
@@ -31,20 +33,20 @@ export default function App() {
 
   return (
     <MainContainer>
-      <Cart mode="condition">
+      <Cart bgColor="#E0E0E0">
         <ConditionsList />
         <SendAllCondRequestButton />
       </Cart>
-      <Cart mode={!firstOrCondReq && "condition"}>
-        {!firstOrCondReq && <ConditionForm />}
-        <RequestForm mode={firstOrCondReq} />
-        {firstOrCondReq && <SendFirstRequestButton />}
+      <Cart>
+        {!isFirstReqActive && <ConditionForm />}
+        <RequestForm />
+        {isFirstReqActive && <SendFirstRequestButton />}
+      </Cart>
+      <Cart bgColor="#FFFFFF">
+        <Response mode="firstReq" />
       </Cart>
       <Cart>
-        <Response mode={true} />
-      </Cart>
-      <Cart mode={!firstOrCondReq && "condition"}>
-        {firstOrCondReq ? <WebhookDataList /> : <Response mode={false} />}
+        {isFirstReqActive ? <WebhookDataList /> : <Response mode="condReq" />}
       </Cart>
     </MainContainer>
   );

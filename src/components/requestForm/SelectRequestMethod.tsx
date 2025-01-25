@@ -5,27 +5,25 @@ import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import { useEffect, useState } from "react";
 
-import { useAppDispatch, useAppSelector } from "../store/hooks";
-import { setCondRequestMethod } from "../store/conditions-slice";
-import { setFirstRequestRequestMethod } from "../store/firstRequest-slice";
-import { RequestMethod } from "../types/requestMethod";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import { setCondRequestMethod } from "../../store/conditions-slice";
+import { setFirstRequestRequestMethod } from "../../store/firstRequest-slice";
+import { RequestMethod } from "../../types/requestMethod";
 
-export default function SelectRequestMethod({
-  mode,
-}: {
-  mode: "firstReq" | "condReq";
-}) {
+export default function SelectRequestMethod() {
   const dispatch = useAppDispatch();
+  const isFirstReqActive = useAppSelector(
+    (state) => state.firstRequest.isActive
+  );
 
   const reqMethod = useAppSelector((state) => {
-    if (mode === "firstReq") {
+    if (isFirstReqActive) {
       return state.firstRequest.request.method;
-    } else if (mode === "condReq") {
+    } else {
       return state.conditions.conditions.find(
         (condItem) => condItem.id === state.conditions.currentCondition
       )!.request.method;
     }
-    return "POST";
   });
 
   const [method, setMethod] = useState<RequestMethod>(reqMethod);
@@ -35,16 +33,15 @@ export default function SelectRequestMethod({
   }, [reqMethod]);
 
   const handleChange = (event: SelectChangeEvent) => {
-    if (mode === "firstReq") {
+    if (isFirstReqActive) {
       return dispatch(
         setFirstRequestRequestMethod(event.target.value as RequestMethod)
       );
-    } else if (mode === "condReq") {
+    } else {
       return dispatch(
         setCondRequestMethod(event.target.value as RequestMethod)
       );
     }
-    setMethod(event.target.value as RequestMethod);
   };
 
   return (
