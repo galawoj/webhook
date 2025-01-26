@@ -114,20 +114,12 @@ To run this project, enter the webside <b>https://galawoj.github.io/webhook_buil
 
 ```
 git clone https://github.com/galawoj/webhook.git
-
 ```
 
 ### Starting
 
 ```
 $ cd ../webhook
-
-
-
 $ npm install
-
-
-
 $ npm run dev
-
 ```
