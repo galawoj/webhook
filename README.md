@@ -28,8 +28,6 @@ A webhook is a way for one application to send real-time data to another applica
 
 <li>Vite 5.4.1</li>
 
-<li>Node.js</li>
-
 <li>Axios 1.7.9</li>
 
 <li>Material UI 6.1.1</li>
@@ -48,7 +46,11 @@ To enable the application to display incoming webhooks, you need to configure yo
 
 ```
 
+
+
 https://voucherifywebhook-3205f-default-rtdb.europe-west1.firebasedatabase.app/data.json
+
+
 
 ```
 
@@ -66,13 +68,47 @@ The main feature of this functionality is the ability to create a request based 
 
 ![Example body](./images/body.jpg)
 
-<!-- #### Continuous Learning:
+#### Sending Conditional Requests:
+
+All actions related to sending conditional requests are located in windows with a gray background.
+
+![Conditions window](./images/conditions.jpg)
+
+This functionality allows you to create requests that will only be sent if specific conditions are met. Each request has its own individual conditions, making the process highly customizable.
+
+<b>Key Features:</b>
 
 <ul>
 
-<li><b>Contextual Learning:</b> The app continues the previous text by incorporating words you found unfamiliar, reinforcing your understanding and retention of new vocabulary.</li>
+<li>Define Conditions per Request:
 
-</ul> -->
+Conditions are set separately for each request. This ensures precise control over when a request should be triggered.
+
+</li>
+
+<li>Reference the First Request:
+
+The conditions are primarily based on the response from the first request ("your first request"). This means you can dynamically determine whether subsequent requests should be sent based on the initial response.
+
+![ValidCondition window](./images/validCondition.jpg)
+
+</li>
+
+<li>Reference the First Request:
+
+Just like when creating the body for your first request, you can also reference data from the first request (not the webhook!) in subsequent requests using double curly braces {{ }}.
+
+</li>
+
+<li>Send All Valid Requests:
+
+After defining conditions and request content, you can use the "Send all valid conditions" button. This will send all the requests whose conditions are met, ensuring only the necessary actions are executed.
+
+</li>
+
+</ul>
+
+This feature is ideal for automating workflows and building dynamic chains of requests.
 
 ## Setup
 
@@ -80,7 +116,11 @@ To run this project, enter the webside <b>https://galawoj.github.io/webhook_buil
 
 ```
 
+
+
 git clone https://github.com/galawoj/webhook.git
+
+
 
 ```
 
@@ -88,10 +128,18 @@ git clone https://github.com/galawoj/webhook.git
 
 ```
 
+
+
 $ cd ../webhook
+
+
 
 $ npm install
 
+
+
 $ npm run dev
+
+
 
 ```

@@ -7,7 +7,12 @@ export default function MainContainer({
 }) {
   return (
     <Box sx={{ width: "100vw" }}>
-      <Grid2 container spacing={1} columns={{ xs: 4, sm: 12, md: 12 }}>
+      <Grid2
+        sx={{ width: "100vw", padding: "10px" }}
+        container
+        spacing={1}
+        columns={{ xs: 4, sm: 12, md: 12 }}
+      >
         {children}
       </Grid2>
     </Box>
