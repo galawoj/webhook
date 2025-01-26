@@ -113,21 +113,13 @@ This feature is ideal for automating workflows and building dynamic chains of re
 To run this project, enter the webside <b>https://galawoj.github.io/webhook_build/</b> or clone my repository:
 
 ```
-
-
-
 git clone https://github.com/galawoj/webhook.git
-
-
 
 ```
 
 ### Starting
 
 ```
-
-
-
 $ cd ../webhook
 
 
@@ -137,7 +129,5 @@ $ npm install
 
 
 $ npm run dev
-
-
 
 ```
