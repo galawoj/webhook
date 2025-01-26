@@ -76,8 +76,6 @@ All actions related to sending conditional requests are located in windows with 
 
 This functionality allows you to create requests that will only be sent if specific conditions are met. Each request has its own individual conditions, making the process highly customizable.
 
-<b>Key Features:</b>
-
 <ul>
 
 <li>Define Conditions per Request:
