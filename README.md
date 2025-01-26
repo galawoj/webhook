@@ -1,3 +1,4 @@
+<div style="background-color: lightblue; padding: 10px;">
 # Content of Project
 
 - [General info](#general-info)
@@ -95,3 +96,4 @@ $ npm install
 $ npm run dev
 
 ```
+</div>
