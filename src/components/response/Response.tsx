@@ -28,10 +28,10 @@ export default function Response({ mode }: { mode: "firstReq" | "condReq" }) {
 
   return (
     <>
-      {!mode && <CurrentConditionItem />}
+      {mode === "condReq" && <CurrentConditionItem />}
 
       <header style={{ textAlign: "center", fontSize: "12pt" }}>
-        <b>{mode && "Your First"} Response</b>
+        <b>{mode === "firstReq" && "Your First"} Response</b>
       </header>
       <ReactJson
         displayObjectSize={false}
@@ -41,7 +41,7 @@ export default function Response({ mode }: { mode: "firstReq" | "condReq" }) {
         name={false}
         src={currentRequestResponse || {}}
       />
-      {!firstOrCondReq && mode && (
+      {!firstOrCondReq && mode === "firstReq" && (
         <ValidationMessage
           singleJson={currentRequestResponse}
           conditionValue={currentConditionItem!.conditionValue}

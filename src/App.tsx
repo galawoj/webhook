@@ -5,7 +5,7 @@ import MainContainer from "./components/MainContainer";
 import ConditionsList from "./components/conditionsList/ConditionList.tsx";
 import RequestForm from "./components/requestForm/RequestForm.tsx";
 import ConditionForm from "./components/conditionForm/ConditionForm.tsx";
-import SendFirstRequestButton from "./components/requestForm/SendFirstRequestButton.tsx";
+import SendFirstRequestButton from "./components/requestForm/sendFirstRequestButton/SendFirstRequestButton.tsx";
 
 import { useAppDispatch, useAppSelector } from "./store/hooks";
 import { useEffect } from "react";

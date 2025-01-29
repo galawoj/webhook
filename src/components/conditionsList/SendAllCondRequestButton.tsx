@@ -2,8 +2,11 @@ import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import elementFromObject from "../../utils/elementFromObject";
 import { sendRequest } from "../../api/sendRequest";
 import { CondReq } from "../../types/condReq";
+import style from "./conditionsList.module.css";
+import { useState } from "react";
 
 export default function SendAllCondRequestButton() {
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const allConditions = useAppSelector((state) => state.conditions.conditions);
   const firstResponse = useAppSelector((state) => state.firstRequest.response);
   const dispatch = useAppDispatch();
@@ -35,12 +38,22 @@ export default function SendAllCondRequestButton() {
       } else {
         console.error("Unknown error occurred.");
       }
+    } finally {
+      setIsLoading(false);
     }
   };
 
   return (
-    <button onClick={buttonHandler} style={{ background: "purple", margin: 5 }}>
-      Send all valid conditions
+    <button
+      onClick={buttonHandler}
+      style={{ background: "purple" }}
+      className={style.all_buttons}
+    >
+      {!isLoading ? (
+        "Send all valid conditions"
+      ) : (
+        <div className={style.loader}></div>
+      )}
     </button>
   );
 }

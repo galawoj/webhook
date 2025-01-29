@@ -45,13 +45,7 @@ A webhook is a way for one application to send real-time data to another applica
 To enable the application to display incoming webhooks, you need to configure your system to send webhooks to the following endpoint:
 
 ```
-
-
-
 https://voucherifywebhook-3205f-default-rtdb.europe-west1.firebasedatabase.app/data.json
-
-
-
 ```
 
 Once your webhook is successfully sent, it will appear in the dedicated window of the application:

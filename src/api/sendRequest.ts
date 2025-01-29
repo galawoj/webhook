@@ -43,13 +43,11 @@ export const sendRequest = async <T extends CondReq | FirstReq>(request: T) => {
     } else if (mode === "firstReq") {
       dispatch(updateFirstRequestResponse(response.data));
     }
-
-    return response.data;
   } catch (err) {
-    const errorMessage = axios.isAxiosError(err)
-      ? err.response?.data?.message || "An error occurred"
-      : "Unknown error";
-    console.error("Request error:", errorMessage);
-    throw new Error(errorMessage);
+    const errorMessage = axios.isAxiosError(err) && err;
+
+    if (errorMessage) {
+      console.error("Request error:", errorMessage.message);
+    }
   }
 };

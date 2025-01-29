@@ -1,6 +1,7 @@
 import { addConditionItem } from "../../store/conditions-slice";
 import { setFirstRequestActive } from "../../store/firstRequest-slice";
 import { useAppDispatch } from "../../store/hooks";
+import style from "./conditionsList.module.css";
 
 export default function AddConditionButton() {
   const dispatch = useAppDispatch();
@@ -12,7 +13,8 @@ export default function AddConditionButton() {
 
   return (
     <button
-      style={{ backgroundColor: "rgb(186, 73, 73)", margin: 5 }}
+      style={{ backgroundColor: "rgb(186, 73, 73)" }}
+      className={style.all_buttons}
       onClick={addConditionHandler}
     >
       add
