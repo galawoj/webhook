@@ -12,6 +12,7 @@ export type FirstRequestState = {
   };
   response: {};
   isActive: boolean;
+  errorMessage: string;
 };
 
 const initialState: FirstRequestState = {
@@ -25,6 +26,7 @@ const initialState: FirstRequestState = {
   },
   response: {},
   isActive: true,
+  errorMessage: "",
 };
 
 export const firstRequestSlice = createSlice({

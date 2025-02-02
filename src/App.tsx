@@ -14,6 +14,7 @@ import { onValue, ref } from "firebase/database";
 import { database } from "./firebaseConfig";
 import Response from "./components/response/Response.tsx";
 import SendAllCondRequestButton from "./components/conditionsList/SendAllCondRequestButton.tsx";
+import ErrorMessage from "./components/errorMessage/errorMessage.tsx";
 
 export default function App() {
   const dispatch = useAppDispatch();

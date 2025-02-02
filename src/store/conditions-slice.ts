@@ -15,6 +15,7 @@ export type ConditionItem = {
     body: {};
   };
   response: {};
+  errorMessage: string;
 };
 
 type ConditionsState = {
@@ -38,6 +39,7 @@ const initialState: ConditionsState = {
         body: {},
       },
       response: {},
+      errorMessage: "",
     },
   ],
 
@@ -63,6 +65,7 @@ export const conditionsSlice = createSlice({
           body: "",
         },
         response: {},
+        errorMessage: "",
       });
       state.currentCondition = state.conditions[state.conditions.length - 1].id;
     },
